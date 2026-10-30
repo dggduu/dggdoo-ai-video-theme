@@ -1,0 +1,29 @@
+{
+  "id": "m3-expressive",
+  "name": "M3 Expressive",
+  "nameZh": "M3 表现力 · 浅色",
+  "description": "M3 Expressive light: oversized radii, spring overshoot, emphasized weights, playful shape language.",
+  "descriptionZh": "M3 Expressive 浅色：超大圆角 + 弹簧回弹 + 强调字重，友好、有能量，适合面向大众的表达。",
+  "mood": [
+    "light",
+    "expressive",
+    "spring",
+    "bold",
+    "friendly",
+    "material"
+  ],
+  "bestFor": [
+    "品牌 / 发布会 keynote",
+    "面向大众的科普",
+    "创意与设计分享",
+    "年轻向内容"
+  ],
+  "seed": "#e8542f",
+  "dynamicColor": true,
+  "preview": {
+    "shell": "#f3e5e2",
+    "surface": "#fff8f6",
+    "text": "#241b18",
+    "accent": "#ad2a00"
+  }
+}

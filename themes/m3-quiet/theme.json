@@ -1,0 +1,28 @@
+{
+  "id": "m3-quiet",
+  "name": "M3 Quiet",
+  "nameZh": "M3 素净",
+  "description": "Low-chroma M3: near-neutral surfaces, huge whitespace, light display weights. Built for long-form thinking.",
+  "descriptionZh": "低饱和 M3：近无彩表面 + 超大留白 + 轻字重，安静耐看，适合深度长文与研究型内容。",
+  "mood": [
+    "light",
+    "quiet",
+    "editorial",
+    "minimal",
+    "neutral"
+  ],
+  "bestFor": [
+    "深度长文 / 研究汇报",
+    "访谈与对谈",
+    "严肃议题",
+    "学术与思想类内容"
+  ],
+  "seed": "#3f5d53",
+  "dynamicColor": true,
+  "preview": {
+    "shell": "#e4ebe8",
+    "surface": "#f8faf9",
+    "text": "#16201c",
+    "accent": "#4e675f"
+  }
+}

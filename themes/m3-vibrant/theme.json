@@ -1,0 +1,28 @@
+{
+  "id": "m3-vibrant",
+  "name": "M3 Vibrant",
+  "nameZh": "M3 活力",
+  "description": "High-chroma M3: saturated tonal containers, 24px radii, snappy springs. Loud but still systematic.",
+  "descriptionZh": "高饱和 M3：饱和色调容器 + 24px 圆角 + 干脆弹簧，声音大但仍然是系统化配色。",
+  "mood": [
+    "light",
+    "vivid",
+    "playful",
+    "energetic",
+    "material"
+  ],
+  "bestFor": [
+    "产品发布 / 新功能",
+    "增长与数据复盘",
+    "创意提案",
+    "社媒短视频"
+  ],
+  "seed": "#00696e",
+  "dynamicColor": true,
+  "preview": {
+    "shell": "#ddeced",
+    "surface": "#f0fdfe",
+    "text": "#142020",
+    "accent": "#006f74"
+  }
+}

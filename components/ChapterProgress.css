@@ -1,0 +1,98 @@
+/* ─────────────────────────────────────────────────────────────────────
+ * ChapterProgress —— 章节进度条（常显，随录屏进画面）
+ *
+ * 每章一段，宽度 = 该章步数；章名在段落上方，当前章高亮。
+ * 尺寸按 1920×1080 舞台给，跟着 Stage 的 transform 一起缩放。
+ * 颜色优先用 M3 token，其它主题回退到 --accent / --rule。
+ * ───────────────────────────────────────────────────────────────────── */
+.cp {
+  position: absolute;
+  left: var(--stage-pad-x, 96px);
+  right: var(--stage-pad-x, 96px);
+  bottom: 12px;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.cp-labels {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.cp-lab {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.1;
+  color: var(--text-mute);
+  transition: color var(--dur-base, 400ms) var(--ease-quart, cubic-bezier(0.2, 0, 0, 1)),
+    font-size var(--dur-base, 400ms) var(--ease-quart, cubic-bezier(0.2, 0, 0, 1)),
+    letter-spacing var(--dur-base, 400ms) var(--ease-quart, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.cp-lab.is-done {
+  color: var(--text-2, var(--text));
+}
+
+.cp-lab.is-now {
+  color: var(--md-primary, var(--accent));
+  font-weight: 600;
+  font-size: 27px;
+  letter-spacing: -0.01em;
+}
+
+/* M3 linear progress：6px 高、3px 圆角、末端 stop indicator */
+.cp-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 8px;
+}
+
+.cp-seg {
+  position: relative;
+  flex-grow: 1;
+  flex-basis: 0;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--md-outline-variant, var(--rule));
+}
+
+.cp-seg.is-now {
+  background: color-mix(
+    in oklab,
+    var(--md-primary, var(--accent)) 26%,
+    var(--md-outline-variant, var(--rule))
+  );
+}
+
+.cp-seg > i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--p, 0%);
+  border-radius: 4px;
+  background: var(--md-primary, var(--accent));
+  transition: width var(--dur-base, 400ms) var(--ease-quart, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.cp-seg.is-done > i {
+  width: 100%;
+}
+
+.cp-stop {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--md-outline, var(--text-faint));
+}

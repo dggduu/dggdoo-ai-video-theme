@@ -1,0 +1,29 @@
+{
+  "id": "m3-tonal-spot",
+  "name": "M3 Tonal Spot",
+  "nameZh": "M3 动态 · 浅色",
+  "description": "Canonical Material You light scheme: tonal surfaces, one seed-derived accent, medium radius, emphasized easing.",
+  "descriptionZh": "Material You 标准浅色：色调表面分层 + 种子色主色，克制通用，适合绝大多数题材。",
+  "mood": [
+    "light",
+    "material",
+    "calm",
+    "systematic",
+    "tonal",
+    "clean"
+  ],
+  "bestFor": [
+    "产品功能讲解",
+    "设计系统 / 方法论",
+    "企业培训",
+    "通用知识科普"
+  ],
+  "seed": "#6750a4",
+  "dynamicColor": true,
+  "preview": {
+    "shell": "#e9e7f3",
+    "surface": "#faf9ff",
+    "text": "#1e1c24",
+    "accent": "#664fa3"
+  }
+}

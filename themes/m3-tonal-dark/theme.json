@@ -1,0 +1,28 @@
+{
+  "id": "m3-tonal-dark",
+  "name": "M3 Tonal Dark",
+  "nameZh": "M3 动态 · 深色",
+  "description": "Canonical Material You dark scheme: near-black surfaces lifted by tonal containers, no glow, quiet confidence.",
+  "descriptionZh": "Material You 深色：近黑表面靠色调分层抬升，暗场录制友好，安静而有分量。",
+  "mood": [
+    "dark",
+    "material",
+    "cinematic",
+    "focused",
+    "tonal"
+  ],
+  "bestFor": [
+    "技术分享 / 开发者大会",
+    "AI 与工程内容",
+    "夜间发布会",
+    "沉浸式讲解"
+  ],
+  "seed": "#6750a4",
+  "dynamicColor": true,
+  "preview": {
+    "shell": "#0e0d13",
+    "surface": "#131219",
+    "text": "#e3e1ed",
+    "accent": "#cabcff"
+  }
+}

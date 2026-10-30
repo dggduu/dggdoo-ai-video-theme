@@ -1,0 +1,2286 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M3 视频模板 · 6 套</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#08080a;color:#ececef;font-family:"Noto Sans SC",system-ui,sans-serif}
+body{padding:0 0 80px}
+.top{position:sticky;top:0;z-index:40;background:rgba(8,8,10,.86);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)}
+.top-in{max-width:1640px;margin:0 auto;padding:16px 32px 14px;display:flex;flex-wrap:wrap;gap:16px 26px;align-items:center}
+.title h1{margin:0;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.title p{margin:4px 0 0;font-size:12px;color:#8b8b96}
+.controls{margin-left:auto;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.ctrl{display:flex;align-items:center;gap:9px}
+.ctrl > span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#76767f;font-family:"Roboto Mono",monospace}
+input[type=color]{appearance:none;width:32px;height:32px;border:1px solid rgba(255,255,255,.18);border-radius:9px;background:none;padding:0;cursor:pointer}
+input[type=color]::-webkit-color-swatch-wrapper{padding:3px}
+input[type=color]::-webkit-color-swatch{border:none;border-radius:6px}
+.seed{width:20px;height:20px;border-radius:6px;border:1px solid rgba(255,255,255,.16);background:var(--c);cursor:pointer;padding:0;transition:transform .18s cubic-bezier(.2,0,0,1)}
+.seed:hover{transform:translateY(-2px) scale(1.08)}
+input[type=range]{width:100px;accent-color:#cfcff5}
+.val{font-family:"Roboto Mono",monospace;font-size:11px;color:#9a9aa5;min-width:40px}
+.btn{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#ececef;font-size:12px;padding:7px 13px;border-radius:999px;cursor:pointer;transition:background .18s,border-color .18s}
+.btn:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.26)}
+.pill{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;overflow:hidden}
+.pill button{border:0;background:transparent;color:#9a9aa5;font-size:12px;padding:7px 13px;cursor:pointer}
+.pill button.on{background:#ececef;color:#0b0b0d}
+
+.segs{max-width:1640px;margin:22px auto 0;padding:0 32px;display:flex;gap:10px;flex-wrap:wrap}
+.seg{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:#c9c9d2;font-size:13px;cursor:pointer;transition:all .2s cubic-bezier(.2,0,0,1)}
+.seg span{font-size:10.5px;color:#6f6f7a}
+.seg:hover{border-color:rgba(255,255,255,.22)}
+.seg.is-on{background:#ececef;color:#0b0b0d;border-color:transparent}
+.seg.is-on span{color:#5a5a63}
+
+.grid{max-width:1640px;margin:24px auto 0;padding:0 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(600px,1fr));gap:28px}
+.grid[hidden]{display:none}
+@media (max-width:700px){.grid{padding:0 14px;grid-template-columns:1fr}.top-in,.segs{padding-left:14px;padding-right:14px}}
+.card{border:1px solid rgba(255,255,255,.08);background:#0e0e11;border-radius:18px;padding:12px 12px 14px;display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:border-color .25s}
+.card:hover{border-color:rgba(255,255,255,.22)}
+.stage-wrap{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
+.stage-scaler{position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;will-change:transform}
+.stage{position:relative;width:1920px;height:1080px;background:var(--surface);color:var(--text);overflow:hidden;font-family:var(--font-display-cn)}
+.stage-bg{position:absolute;inset:0;background-image:var(--surface-pattern,none);background-size:var(--surface-pattern-size,auto);mix-blend-mode:var(--surface-pattern-blend,normal);opacity:var(--surface-pattern-opacity,1)}
+.stage-bg::after{content:"";position:absolute;inset:0;background:var(--surface-vignette,none)}
+
+/* ── 通用页 ── */
+.sc{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:var(--stage-pad-y) var(--stage-pad-x) calc(var(--stage-pad-y) + 104px)}
+.pg-meta{font-family:var(--font-body);font-variant-numeric:tabular-nums;font-size:19px;letter-spacing:.14em;color:var(--text-mute)}
+
+/* 封面 */
+.cv-body{margin-top:auto;display:flex;flex-direction:column;gap:28px}
+.cv-title{margin:0;font-size:150px;line-height:1.0;letter-spacing:-.045em;font-weight:var(--hero-num-weight,700);color:var(--text)}
+.cv-sub{margin:0;font-family:var(--font-body);font-size:34px;line-height:1.5;color:var(--text-2)}
+
+/* 媒体页：全幅视频 + 悬浮信息 */
+.sc-media{padding:44px var(--stage-pad-x) calc(var(--stage-pad-y) + 112px)}
+.md-frame{position:relative;flex:1;min-height:0;border-radius:32px;overflow:hidden;background:var(--md-surface-container)}
+.md-vf{position:absolute;inset:0;background:
+  radial-gradient(34% 36% at 20% 22%, var(--md-primary-container) 0%, transparent 70%),
+  radial-gradient(38% 40% at 82% 78%, var(--md-tertiary-container) 0%, transparent 68%),
+  radial-gradient(26% 28% at 58% 30%, var(--md-secondary-container) 0%, transparent 72%),
+  var(--md-surface-container-high)}
+.md-ph{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:16px;font-family:var(--font-body);font-size:22px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-2);opacity:.82}
+.md-ph-ic{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:color-mix(in oklab,var(--md-surface) 66%,transparent);color:var(--md-primary)}
+.md-ph-ic svg{width:26px;height:26px;margin-left:2px}
+.md-float{position:absolute;background:color-mix(in oklab,var(--md-surface) 88%,transparent);backdrop-filter:blur(20px);border:1px solid color-mix(in oklab,var(--md-outline-variant) 60%,transparent);color:var(--text);border-radius:999px;padding:14px 24px;box-shadow:0 10px 34px rgba(0,0,0,.12)}
+.md-float--tl{left:44px;top:44px}
+.md-float--tr{right:44px;top:44px;font-family:var(--font-body);font-variant-numeric:tabular-nums;font-size:20px;letter-spacing:.1em;color:var(--text-2)}
+.md-float--bl{left:44px;bottom:44px;max-width:62%;border-radius:28px;padding:30px 36px}
+.md-cap-t{font-size:52px;line-height:1.15;font-weight:600;letter-spacing:-.025em}
+.md-cap-s{margin-top:12px;font-family:var(--font-body);font-size:24px;line-height:1.45;color:var(--text-2)}
+
+/* 图文页：左问题 · 右图片 */
+.sc-split{flex-direction:row;align-items:stretch;gap:64px}
+.sp-l{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:30px;min-width:0;padding-bottom:8px}
+.sp-title{margin:0;font-size:82px;line-height:1.12;letter-spacing:-.04em;font-weight:var(--hero-num-weight,700);color:var(--text)}
+.sp-p{margin:0;font-family:var(--font-body);font-size:30px;line-height:1.6;color:var(--text-2);max-width:660px;text-wrap:pretty}
+.sp-meta{display:flex;gap:14px;margin-top:6px}
+.sp-r{flex:.92;display:flex;align-items:stretch;min-width:0}
+.sp-img{position:relative;flex:1;border-radius:32px;overflow:hidden;background:var(--md-surface-container)}
+.sp-vf{position:absolute;inset:0;background:
+  radial-gradient(58% 52% at 26% 22%, var(--md-tertiary-container) 0%, transparent 72%),
+  radial-gradient(62% 58% at 78% 82%, var(--md-primary-container) 0%, transparent 70%),
+  var(--md-surface-container)}
+.sp-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--font-body);font-size:22px;letter-spacing:.18em;color:var(--text-2);opacity:.82}
+
+/* 卡片页 */
+.cd-head{display:flex;flex-direction:column;gap:24px}
+.cd-title{margin:0;font-size:72px;line-height:1.12;letter-spacing:-.035em;font-weight:var(--hero-num-weight,700);color:var(--text)}
+.cd-row{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:52px;min-height:0}
+.cd-card{display:flex;flex-direction:column;gap:18px;padding:44px;border-radius:var(--r-card);background:var(--md-surface-container);color:var(--text)}
+.cd-card.is-hl{background:var(--md-primary-container);color:var(--md-on-primary-container)}
+.cd-shape{display:block;width:64px;height:64px;border-radius:var(--md-shape-l);background:var(--md-primary-container)}
+.cd-card.is-hl .cd-shape{background:var(--md-primary)}
+.cd-n{margin-top:auto;font-family:var(--font-body);font-size:20px;color:var(--text-mute);font-variant-numeric:tabular-nums}
+.cd-card.is-hl .cd-n{color:inherit;opacity:.75}
+.cd-card h3{margin:0;font-size:42px;line-height:1.1;font-weight:600;letter-spacing:-.025em}
+.cd-card p{margin:0;font-family:var(--font-body);font-size:24px;line-height:1.5;color:var(--text-2)}
+.cd-card.is-hl p{color:inherit;opacity:.82}
+
+/* 递进页 */
+.ls-head{display:flex;flex-direction:column;gap:24px}
+.ls-title{margin:0;font-size:76px;line-height:1.12;letter-spacing:-.035em;font-weight:var(--hero-num-weight,700);color:var(--text)}
+.ls{margin:auto 0;padding:0;list-style:none}
+.ls li{display:flex;align-items:baseline;gap:48px;padding:38px 0;border-top:1px solid var(--md-outline-variant)}
+.ls li:last-child{border-bottom:1px solid var(--md-outline-variant)}
+.ls-n{flex:none;width:72px;font-family:var(--font-body);font-variant-numeric:tabular-nums;font-size:24px;color:var(--md-primary);letter-spacing:.06em}
+.ls b{display:block;font-size:44px;font-weight:600;letter-spacing:-.02em;color:var(--text)}
+.ls span{display:block;margin-top:12px;font-family:var(--font-body);font-size:26px;color:var(--text-2)}
+
+/* 图表页 */
+.sc-chart{gap:0}
+.ch-head{display:flex;align-items:flex-end;justify-content:space-between;gap:48px}
+.ch-head-l{display:flex;flex-direction:column;gap:24px}
+.ch-title{margin:0;font-size:76px;line-height:1.12;letter-spacing:-.035em;font-weight:var(--hero-num-weight,700);color:var(--text)}
+.ch-plot{display:flex;align-items:flex-end;gap:56px;margin-top:auto;padding-top:36px;border-bottom:1px solid var(--md-outline-variant)}
+.ch-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:18px;min-width:0}
+.ch-val{font-family:var(--font-body);font-size:26px;color:var(--text-2);font-variant-numeric:tabular-nums}
+.ch-bar{display:block;width:100%;border-radius:calc(var(--r-card) * .5) calc(var(--r-card) * .5) 0 0;background:var(--md-surface-container-highest);transform-origin:bottom}
+.ch-col.is-hl .ch-bar{background:var(--md-primary)}
+.ch-x{font-family:var(--font-body);font-size:22px;color:var(--text-mute);font-variant-numeric:tabular-nums;padding:10px 0 18px}
+
+.ch-legend{display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding-bottom:8px}
+.ch-legend-row{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-body);font-size:22px;color:var(--text-2)}
+.ch-legend .dot{width:10px;height:10px;border-radius:50%;background:var(--md-primary);display:block}
+.ch-total{font-family:var(--font-body);font-size:21px;color:var(--text-mute);font-variant-numeric:tabular-nums}
+
+/* 尾页 */
+.ed-body{margin-top:auto;display:flex;flex-direction:column;gap:30px}
+.ed-title{margin:0;font-size:168px;line-height:1.0;letter-spacing:-.05em;font-weight:var(--hero-num-weight,700);color:var(--text)}
+
+/* 数据页 */
+.dt-row{display:flex;align-items:flex-end;gap:48px;margin:auto 0 0}
+.dt-num{font-family:var(--hero-num-font);font-weight:var(--hero-num-weight);font-size:300px;line-height:.82;letter-spacing:var(--hero-num-track);color:var(--md-primary)}
+.dt-label{font-family:var(--font-body);font-size:32px;line-height:1.45;color:var(--text-2);padding-bottom:28px}
+.dt-bars{display:flex;gap:16px;margin-top:64px}
+.dt-col{flex:1;display:flex;flex-direction:column;gap:14px}
+.dt-col i{display:block;height:96px;border-radius:calc(var(--r-card) * .5);border:1px solid var(--md-outline-variant);transform-origin:bottom}
+.dt-col span{font-family:var(--font-body);font-variant-numeric:tabular-nums;font-size:17px;color:var(--text-mute);text-align:center}
+
+/* ── 章节进度条：每章一段 + 标签，当前章高亮 ── */
+.sub{position:absolute;left:var(--stage-pad-x);right:var(--stage-pad-x);bottom:86px;margin:0;text-align:center;font-family:var(--font-body);font-size:46px;line-height:1.35;color:var(--text-2)}
+.cprog{position:absolute;left:var(--stage-pad-x);right:var(--stage-pad-x);bottom:12px;z-index:6;display:flex;flex-direction:column;gap:14px}
+.cprog-labels{display:flex;gap:10px;align-items:baseline}
+.cprog-lab{flex:var(--w,1);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--font-body);font-size:19px;line-height:1.1;color:var(--text-mute);font-variant-numeric:tabular-nums;transition:font-size .45s var(--md-ease-emphasized),color .35s var(--md-ease-emphasized),letter-spacing .45s var(--md-ease-emphasized)}
+.cprog-lab.now{color:var(--md-primary);font-weight:600;font-size:27px;letter-spacing:-.01em}
+.cprog-lab.done{color:var(--text-2)}
+.cprog-bar{display:flex;align-items:center;gap:10px;height:8px}
+.cprog-seg{position:relative;flex:var(--w,1);height:8px;border-radius:4px;background:var(--md-outline-variant);overflow:hidden;transition:background-color .45s var(--md-ease-emphasized)}
+.cprog-seg i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:4px;background:var(--md-primary)}
+.cprog-seg.now{background:color-mix(in oklab,var(--md-primary) 22%,var(--md-outline-variant))}
+.cprog-stop{flex:none;width:8px;height:8px;border-radius:50%;background:var(--md-outline);margin-left:2px}
+
+/* ── 动效（.play 触发，静态截图是终态）── */
+@keyframes m-rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+@keyframes m-fade{from{opacity:0}to{opacity:1}}
+@keyframes m-pop{from{opacity:0;transform:scale(.975)}to{opacity:1;transform:none}}
+@keyframes m-growx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes m-growy{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes m-fill{from{width:0}to{width:var(--p,100%)}}
+
+.sc.play .cv-top,.sc.play .pg-meta{animation:m-fade .7s var(--md-ease-emphasized-decelerate) both}
+.sc.play .cv-title{animation:m-rise .9s var(--md-ease-emphasized-decelerate) .06s both}
+.sc.play .cv-sub{animation:m-rise .9s var(--md-ease-emphasized-decelerate) .16s both}
+.sc.play .cv-foot .m3-rule{animation:m-growx 1.1s var(--md-ease-emphasized-decelerate) .26s both;transform-origin:left}
+
+.sc.play .md-frame{animation:m-pop .95s var(--md-ease-emphasized-decelerate) both}
+.sc.play .md-float--tl{animation:m-rise .7s var(--md-spring-default) .22s both}
+.sc.play .md-float--tr{animation:m-rise .7s var(--md-spring-default) .3s both}
+.sc.play .md-float--bl{animation:m-rise .8s var(--md-spring-default) .38s both}
+
+.sc.play .sp-l .m3-kicker{animation:m-fade .7s var(--md-ease-emphasized-decelerate) both}
+.sc.play .sp-title{animation:m-rise .9s var(--md-ease-emphasized-decelerate) .06s both}
+.sc.play .sp-p{animation:m-rise .85s var(--md-ease-emphasized-decelerate) .16s both}
+.sc.play .sp-meta{animation:m-rise .8s var(--md-spring-default) .26s both}
+.sc.play .sp-img{animation:m-pop .95s var(--md-ease-emphasized-decelerate) .1s both}
+
+.sc.play .ed-body .m3-kicker{animation:m-fade .7s var(--md-ease-emphasized-decelerate) both}
+.sc.play .ed-title{animation:m-rise 1s var(--md-ease-emphasized-decelerate) .06s both}
+
+.sc.play .cd-head{animation:m-rise .8s var(--md-ease-emphasized-decelerate) both}
+.sc.play .cd-card{animation:m-rise .85s var(--md-spring-default) both}
+.sc.play .cd-card:nth-child(1){animation-delay:.12s}
+.sc.play .cd-card:nth-child(2){animation-delay:.22s}
+.sc.play .cd-card:nth-child(3){animation-delay:.32s}
+
+.sc.play .ls-head{animation:m-rise .8s var(--md-ease-emphasized-decelerate) both}
+.sc.play .ls li{animation:m-rise .8s var(--md-ease-emphasized-decelerate) both}
+.sc.play .ls li:nth-child(1){animation-delay:.14s}
+.sc.play .ls li:nth-child(2){animation-delay:.24s}
+.sc.play .ls li:nth-child(3){animation-delay:.34s}
+
+.sc.play .ch-head .m3-kicker{animation:m-fade .7s var(--md-ease-emphasized-decelerate) both}
+.sc.play .ch-title{animation:m-rise .9s var(--md-ease-emphasized-decelerate) .06s both}
+.sc.play .ch-bar{animation:m-growy .75s var(--md-spring-default) both}
+.sc.play .ch-col:nth-child(1) .ch-bar{animation-delay:.18s}
+.sc.play .ch-col:nth-child(2) .ch-bar{animation-delay:.24s}
+.sc.play .ch-col:nth-child(3) .ch-bar{animation-delay:.30s}
+.sc.play .ch-col:nth-child(4) .ch-bar{animation-delay:.36s}
+.sc.play .ch-col:nth-child(5) .ch-bar{animation-delay:.42s}
+.sc.play .ch-val,.sc.play .ch-x{animation:m-fade .6s linear .3s both}
+.sc.play .ch-legend{animation:m-fade .7s var(--md-ease-emphasized-decelerate) .45s both}
+
+.sc.play .sc-data .m3-kicker{animation:m-fade .7s var(--md-ease-emphasized-decelerate) both}
+.sc.play .dt-num{animation:m-rise .95s var(--md-spring-default) .06s both}
+.sc.play .dt-label{animation:m-rise .8s var(--md-ease-emphasized-decelerate) .2s both}
+.sc.play .dt-col i{animation:m-growy .7s var(--md-spring-default) both}
+.sc.play .dt-col:nth-child(1) i{animation-delay:.26s}
+.sc.play .dt-col:nth-child(2) i{animation-delay:.30s}
+.sc.play .dt-col:nth-child(3) i{animation-delay:.34s}
+.sc.play .dt-col:nth-child(4) i{animation-delay:.38s}
+.sc.play .dt-col:nth-child(5) i{animation-delay:.42s}
+.sc.play .dt-col:nth-child(6) i{animation-delay:.46s}
+.sc.play .dt-col:nth-child(7) i{animation-delay:.50s}
+.sc.play .dt-col span{animation:m-fade .6s linear .55s both}
+
+
+.meta{display:flex;flex-direction:column;gap:8px;padding:0 4px}
+.meta-head{display:flex;align-items:baseline;gap:10px}
+.meta-head h3{margin:0;font-size:14px;font-weight:600}
+.meta-head code{font-family:"Roboto Mono",monospace;font-size:10.5px;color:#6f6f7a;background:rgba(255,255,255,.05);padding:2px 7px;border-radius:6px}
+.meta p{margin:0;font-size:11.5px;line-height:1.5;color:#9b9ba6}
+.palette{display:flex;gap:5px}
+.palette i{width:18px;height:18px;border-radius:5px;border:1px solid rgba(255,255,255,.10)}
+
+/* ── viewer ── */
+.viewer{position:fixed;inset:0;z-index:90;background:rgba(6,6,8,.92);backdrop-filter:blur(16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:22px}
+.viewer[hidden]{display:none}
+.v-bar{width:min(1440px,94vw);display:flex;align-items:center;gap:12px;font-size:12.5px;color:#cfcfd6}
+.v-bar .sp{flex:1}
+.v-wrap{width:min(1440px,94vw);aspect-ratio:16/9;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 40px 120px rgba(0,0,0,.7)}
+.v-foot{font-size:12px;color:#7c7c86;display:flex;gap:8px;align-items:center}
+kbd{font-family:"Roboto Mono",monospace;font-size:10.5px;border:1px solid rgba(255,255,255,.16);border-radius:5px;padding:1px 5px;color:#b9b9c3}
+</style>
+<style>/* @m3-kit-start */
+.m3-card{background:var(--md-surface-container);color:var(--md-on-surface);border-radius:var(--r-card);padding:40px}
+.m3-card--high{background:var(--md-surface-container-high)}
+.m3-card--outlined{background:transparent;border:1px solid var(--md-outline-variant)}
+
+.m3-chip{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border:1px solid var(--md-outline-variant);border-radius:999px;color:var(--md-on-surface-variant);font-family:var(--font-body);font-size:20px;white-space:nowrap}
+.m3-chip--filled{background:var(--md-secondary-container);color:var(--md-on-secondary-container);border-color:transparent}
+.m3-chip--accent{background:var(--md-primary);color:var(--md-on-primary);border-color:transparent}
+
+.m3-tabs{display:flex;align-items:stretch;gap:36px}
+.m3-tab{position:relative;display:flex;align-items:center;height:72px;font-family:var(--font-body);font-size:22px;font-weight:500;color:var(--md-on-surface-variant);white-space:nowrap}
+.m3-tab.is-active{color:var(--md-primary)}
+.m3-tab.is-active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;border-radius:2px;background:var(--md-primary)}
+
+.m3-kicker{display:inline-flex;align-items:center;gap:12px;font-family:var(--font-body);font-size:19px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-mute)}
+.m3-kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--md-primary);display:block}
+.m3-rule{display:block;height:1px;background:var(--md-outline-variant);width:100%}
+.m3-shape{display:block;background:var(--md-primary-container);border-radius:var(--r-card)}
+.m3-progress{height:4px;border-radius:2px;background:var(--md-surface-variant);overflow:hidden}
+.m3-progress i{display:block;height:100%;background:var(--md-primary);width:var(--v,40%)}
+/* @m3-kit-end */</style>
+<style>/* ─────────────────────────────────────────────────────────────────────
+ * Theme · m3-tonal-spot
+ *   Material You 标准浅色：色调表面 + 单一主色，克制、通用、不会过时。
+ *
+ *   动态取色（dynamic color）：
+ *     只改下面 ── 1. 种子色 ── 里的 --seed 一个值，
+ *     整套 MD3 色调板 + 30 个语义色角色会按 OKLCH 自动重算。
+ *     --chroma 控制饱和度（0 = 纯灰，1 = 种子原样，>1 = 更鲜艳）。
+ *
+ *   兼容：不支持 oklch(from …) 的浏览器自动退回静态兜底色调板（也是
+ *   一套合法的 M3 配色，只是不再跟随 --seed）。
+ * ───────────────────────────────────────────────────────────────────── */
+.m3[data-theme="m3-tonal-spot"] {
+  /* ═══ 1. 种子色 ═══ */
+  --seed: #6750a4;
+  --chroma: 1.0;
+  --neutral-chroma: 1.0;
+  --variant-chroma: 0.13;
+
+  /* ═══ 2. 静态兜底色调板（baseline 推导，不支持相对色时使用）═══ */
+  --p-10: #24044e;
+  --p-20: #371a6b;
+  --p-30: #4d3485;
+  --p-40: #664fa3;
+  --p-50: #7c66bc;
+  --p-60: #9681da;
+  --p-70: #b19bf7;
+  --p-80: #cabcff;
+  --p-90: #e4deff;
+  --p-95: #f2efff;
+  --p-99: #fcfcff;
+  --p-100: #ffffff;
+  --s-10: #1f1930;
+  --s-20: #322c46;
+  --s-30: #48435e;
+  --s-40: #625c79;
+  --s-50: #797391;
+  --s-60: #938dac;
+  --s-70: #ada7c7;
+  --s-80: #c8c4dc;
+  --s-90: #e3e1ee;
+  --s-95: #f1f0f7;
+  --s-99: #fcfcfe;
+  --s-100: #ffffff;
+  --t-10: #350c20;
+  --t-20: #4c1f33;
+  --t-30: #65364a;
+  --t-40: #815064;
+  --t-50: #99667b;
+  --t-60: #b58095;
+  --t-70: #d19ab0;
+  --t-80: #e4baca;
+  --t-90: #f3dce4;
+  --t-95: #faeef2;
+  --t-99: #fffbfd;
+  --t-100: #ffffff;
+  --n-4: #0e0d13;
+  --n-6: #131219;
+  --n-10: #1e1c24;
+  --n-12: #211f27;
+  --n-17: #2b2932;
+  --n-20: #312f38;
+  --n-22: #36343d;
+  --n-24: #3a3841;
+  --n-30: #48464f;
+  --n-50: #787680;
+  --n-60: #92909b;
+  --n-80: #c8c6d1;
+  --n-87: #dbd9e5;
+  --n-90: #e3e1ed;
+  --n-92: #e9e7f3;
+  --n-94: #f0eefa;
+  --n-95: #f2f0fc;
+  --n-96: #f4f2fe;
+  --n-98: #faf9ff;
+  --n-99: #fcfcff;
+  --n-100: #ffffff;
+  --nv-30: #484650;
+  --nv-50: #787681;
+  --nv-60: #92909c;
+  --nv-80: #c8c6cf;
+  --nv-90: #e3e2e7;
+
+  /* ── MD3 语义色角色（light scheme）── */
+  --md-primary:              var(--p-40);
+  --md-on-primary:           #ffffff;
+  --md-primary-container:    var(--p-90);
+  --md-on-primary-container: var(--p-10);
+  --md-secondary:              var(--s-40);
+  --md-on-secondary:           #ffffff;
+  --md-secondary-container:    var(--s-90);
+  --md-on-secondary-container: var(--s-10);
+  --md-tertiary:              var(--t-40);
+  --md-on-tertiary:           #ffffff;
+  --md-tertiary-container:    var(--t-90);
+  --md-on-tertiary-container: var(--t-10);
+  --md-error:              #b3261e;
+  --md-on-error:           #ffffff;
+  --md-error-container:    #f9dedc;
+  --md-on-error-container: #410e0b;
+  --md-surface:                    var(--n-98);
+  --md-on-surface:                 var(--n-10);
+  --md-surface-variant:            var(--nv-90);
+  --md-on-surface-variant:         var(--nv-30);
+  --md-surface-container-lowest:   #ffffff;
+  --md-surface-container-low:      var(--n-96);
+  --md-surface-container:          var(--n-94);
+  --md-surface-container-high:     var(--n-92);
+  --md-surface-container-highest:  var(--n-90);
+  --md-outline:          var(--nv-50);
+  --md-outline-variant:  var(--nv-80);
+  --md-inverse-surface:  var(--n-20);
+  --md-inverse-on-surface: var(--n-95);
+  --md-inverse-primary:  var(--p-80);
+  /* ── 视频主题契约映射 ── */
+  --shell:      var(--n-92);
+  --surface:    var(--md-surface);
+  --surface-2:  var(--md-surface-container);
+  --surface-3:  var(--md-surface-container-high);
+  --text:       var(--md-on-surface);
+  --text-2:     var(--md-on-surface-variant);
+  --text-mute:  color-mix(in oklab, var(--nv-50) 80%, var(--nv-30));
+  --text-faint: color-mix(in oklab, var(--nv-60) 55%, var(--nv-50));
+  --rule:       var(--md-outline-variant);
+  --accent:     var(--md-primary);
+  --accent-soft: color-mix(in oklab, var(--accent) 11%, transparent);
+  --accent-glow: color-mix(in oklab, var(--accent) 42%, transparent);
+
+  /* ═══ 字体 ═══ */
+  --font-display-cn: "Noto Sans SC", "Source Han Sans SC", -apple-system, sans-serif;
+  --font-display-en: "Roboto Flex", "Roboto", "Helvetica Neue", -apple-system, sans-serif;
+  --font-body:       "Roboto", "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono:       "Roboto Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-features:   "tnum", "ss01";
+
+  /* ── MD3 shape scale ── */
+  --md-shape-none: 0px;
+  --md-shape-xs:   4px;
+  --md-shape-s:    8px;
+  --md-shape-m:    12px;
+  --md-shape-l:    16px;
+  --md-shape-xl:   28px;
+  --md-shape-full: 999px;
+  --r-card:        16px;
+
+  /* ── 时长（M3 duration tokens 的视频版放大）── */
+  --md-dur-short-1: 100ms;
+  --md-dur-short-2: 150ms;
+  --md-dur-short-3: 200ms;
+  --md-dur-medium-1: 400ms;
+  --md-dur-medium-2: 600ms;
+  --md-dur-long-1: 900ms;
+  --md-dur-long-2: 1170ms;
+
+  /* ── 通用动效变量映射到 M3，让 primitive class 自动带 M3 手感 ── */
+  --ease-quart:     var(--md-ease-emphasized);
+  --ease-expo:      var(--md-ease-emphasized-decelerate);
+  --ease-soft:      var(--md-ease-standard);
+  --ease-overshoot: var(--md-spring-bouncy);
+  --dur-quick:      200ms;
+  --dur-base:       400ms;
+  --dur-slow:       600ms;
+  --dur-cinematic:  900ms;
+  --md-spring:      var(--md-spring-default);
+
+  /* ── MD3 motion：easing 曲线（spec 原值）── */
+  --md-ease-emphasized:            cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-ease-standard:              cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-standard-decelerate:   cubic-bezier(0, 0, 0, 1);
+  --md-ease-standard-accelerate:   cubic-bezier(0.3, 0, 1, 1);
+
+  /* ── MD3 Expressive：弹簧（damped spring 采样成 CSS linear()）── */
+  --md-spring-fast:    linear(0, 0.051 4.0%, 0.168 8.0%, 0.313 12.0%, 0.459 16.0%, 0.593 20.0%, 0.708 24.0%, 0.800 28.0%, 0.871 32.0%, 0.924 36.0%, 0.961 40.0%, 0.986 44.0%, 1.002 48.0%, 1.010 52.0%, 1.014 56.0%, 1.015 60.0%, 1.014 64.0%, 1.012 68.0%, 1.010 72.0%, 1.008 76.0%, 1.006 80.0%, 1.004 84.0%, 1.003 88.0%, 1.002 92.0%, 1.001 96.0%, 1);
+  --md-spring-default: linear(0, 0.058 4.0%, 0.191 8.0%, 0.352 12.0%, 0.513 16.0%, 0.656 20.0%, 0.774 24.0%, 0.865 28.0%, 0.932 32.0%, 0.977 36.0%, 1.005 40.0%, 1.021 44.0%, 1.027 48.0%, 1.028 52.0%, 1.026 56.0%, 1.022 60.0%, 1.017 64.0%, 1.013 68.0%, 1.009 72.0%, 1.006 76.0%, 1.003 80.0%, 1.001 84.0%, 1.000 88.0%, 1.000 92.0%, 0.999 96.0%, 1);
+  --md-spring-slow:    linear(0, 0.045 4.0%, 0.150 8.0%, 0.280 12.0%, 0.413 16.0%, 0.538 20.0%, 0.647 24.0%, 0.739 28.0%, 0.813 32.0%, 0.870 36.0%, 0.914 40.0%, 0.946 44.0%, 0.969 48.0%, 0.984 52.0%, 0.994 56.0%, 1.001 60.0%, 1.004 64.0%, 1.006 68.0%, 1.006 72.0%, 1.006 76.0%, 1.005 80.0%, 1.005 84.0%, 1.004 88.0%, 1.003 92.0%, 1.002 96.0%, 1);
+  --md-spring-bouncy:  linear(0, 0.180 4.0%, 0.553 8.0%, 0.912 12.0%, 1.146 16.0%, 1.232 20.0%, 1.204 24.0%, 1.121 28.0%, 1.034 32.0%, 0.973 36.0%, 0.947 40.0%, 0.950 44.0%, 0.968 48.0%, 0.989 52.0%, 1.004 56.0%, 1.012 60.0%, 1.012 64.0%, 1.008 68.0%, 1.004 72.0%, 1.000 76.0%, 0.997 80.0%, 0.997 84.0%, 0.998 88.0%, 0.999 92.0%, 1.000 96.0%, 1);
+
+  /* ═══ 舞台性格 ═══ */
+  --r-stage:       0;
+  --rule-w:        1px;
+  --rule-style:    solid;
+  --hero-num-font:   var(--font-display-en);
+  --hero-num-style:  normal;
+  --hero-num-weight: 500;
+  --hero-num-track:  -0.02em;
+  --stage-pad-x:   100px;
+  --stage-pad-y:   80px;
+  --card-shadow:   0 1px 2px rgba(0,0,0,0.05), 0 2px 6px 2px rgba(0,0,0,0.04);
+  --card-glass-bg:     color-mix(in oklab, var(--md-surface-container-high) 82%, transparent);
+  --card-glass-border: color-mix(in oklab, var(--md-outline-variant) 55%, transparent);
+  --shadow-stage:  0 32px 96px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.03);
+  --surface-pattern: none;
+  --surface-vignette: none;
+}
+
+/* ═══ 3. 动态推导：种子色 → 完整 M3 色调板 ═══ */
+@supports (color: oklch(from red l c h)) {
+  .m3[data-theme="m3-tonal-spot"] {
+    --p-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --p-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --p-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --p-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --p-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --p-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --p-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --p-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --p-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --p-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --p-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --p-100: #ffffff;
+    --s-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --s-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --s-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --s-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --s-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --s-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --s-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --s-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --s-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --s-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --s-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --s-100: #ffffff;
+    --t-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) calc(h + 60));
+    --t-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) calc(h + 60));
+    --t-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) calc(h + 60));
+    --t-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) calc(h + 60));
+    --t-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) calc(h + 60));
+    --t-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) calc(h + 60));
+    --t-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) calc(h + 60));
+    --t-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) calc(h + 60));
+    --t-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) calc(h + 60));
+    --t-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) calc(h + 60));
+    --t-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) calc(h + 60));
+    --t-100: #ffffff;
+    --n-4: oklch(from var(--seed) 0.1645 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-6: oklch(from var(--seed) 0.1874 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-12: oklch(from var(--seed) 0.245 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-17: oklch(from var(--seed) 0.286 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-22: oklch(from var(--seed) 0.33 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-24: oklch(from var(--seed) 0.346 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-87: oklch(from var(--seed) 0.89 min(calc(c * 0.55 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-92: oklch(from var(--seed) 0.933 min(calc(c * 0.3 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-94: oklch(from var(--seed) 0.954 min(calc(c * 0.24 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-96: oklch(from var(--seed) 0.967 min(calc(c * 0.17 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-98: oklch(from var(--seed) 0.984 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-100: #ffffff;
+    --nv-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-100: #ffffff;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * M3 视频原语（可选）—— 给章节用的最小集合，不是 UI 组件库
+ *
+ *   .m3-card      色调容器（surface-container + 主题圆角）
+ *   .m3-chip      小标签（pill / 描边）
+ *   .m3-tab       小节标签（视频上方的那个小 tab）
+ *   .m3-kicker    小号大写标签
+ *   .m3-rule      发丝分割线
+ *   .m3-shape     色块 / 形状（圆角跟主题走）
+ *   .m3-progress  线性进度（4dp，M3 spec）
+ *
+ * 尺寸按 1920×1080 舞台给。
+ * ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Theme · m3-tonal-dark
+ *   Material You 深色：近黑表面 + 色调分层抬升，暗场录制不刺眼。
+ *
+ *   动态取色（dynamic color）：
+ *     只改下面 ── 1. 种子色 ── 里的 --seed 一个值，
+ *     整套 MD3 色调板 + 30 个语义色角色会按 OKLCH 自动重算。
+ *     --chroma 控制饱和度（0 = 纯灰，1 = 种子原样，>1 = 更鲜艳）。
+ *
+ *   兼容：不支持 oklch(from …) 的浏览器自动退回静态兜底色调板（也是
+ *   一套合法的 M3 配色，只是不再跟随 --seed）。
+ * ───────────────────────────────────────────────────────────────────── */
+.m3[data-theme="m3-tonal-dark"] {
+  /* ═══ 1. 种子色 ═══ */
+  --seed: #6750a4;
+  --chroma: 1.0;
+  --neutral-chroma: 1.0;
+  --variant-chroma: 0.13;
+
+  /* ═══ 2. 静态兜底色调板（baseline 推导，不支持相对色时使用）═══ */
+  --p-10: #24044e;
+  --p-20: #371a6b;
+  --p-30: #4d3485;
+  --p-40: #664fa3;
+  --p-50: #7c66bc;
+  --p-60: #9681da;
+  --p-70: #b19bf7;
+  --p-80: #cabcff;
+  --p-90: #e4deff;
+  --p-95: #f2efff;
+  --p-99: #fcfcff;
+  --p-100: #ffffff;
+  --s-10: #1f1930;
+  --s-20: #322c46;
+  --s-30: #48435e;
+  --s-40: #625c79;
+  --s-50: #797391;
+  --s-60: #938dac;
+  --s-70: #ada7c7;
+  --s-80: #c8c4dc;
+  --s-90: #e3e1ee;
+  --s-95: #f1f0f7;
+  --s-99: #fcfcfe;
+  --s-100: #ffffff;
+  --t-10: #350c20;
+  --t-20: #4c1f33;
+  --t-30: #65364a;
+  --t-40: #815064;
+  --t-50: #99667b;
+  --t-60: #b58095;
+  --t-70: #d19ab0;
+  --t-80: #e4baca;
+  --t-90: #f3dce4;
+  --t-95: #faeef2;
+  --t-99: #fffbfd;
+  --t-100: #ffffff;
+  --n-4: #0e0d13;
+  --n-6: #131219;
+  --n-10: #1e1c24;
+  --n-12: #211f27;
+  --n-17: #2b2932;
+  --n-20: #312f38;
+  --n-22: #36343d;
+  --n-24: #3a3841;
+  --n-30: #48464f;
+  --n-50: #787680;
+  --n-60: #92909b;
+  --n-80: #c8c6d1;
+  --n-87: #dbd9e5;
+  --n-90: #e3e1ed;
+  --n-92: #e9e7f3;
+  --n-94: #f0eefa;
+  --n-95: #f2f0fc;
+  --n-96: #f4f2fe;
+  --n-98: #faf9ff;
+  --n-99: #fcfcff;
+  --n-100: #ffffff;
+  --nv-30: #484650;
+  --nv-50: #787681;
+  --nv-60: #92909c;
+  --nv-80: #c8c6cf;
+  --nv-90: #e3e2e7;
+
+  /* ── MD3 语义色角色（dark scheme）── */
+  --md-primary:              var(--p-80);
+  --md-on-primary:           var(--p-10);
+  --md-primary-container:    var(--p-30);
+  --md-on-primary-container: var(--p-90);
+  --md-secondary:              var(--s-80);
+  --md-on-secondary:           var(--s-20);
+  --md-secondary-container:    var(--s-30);
+  --md-on-secondary-container: var(--s-90);
+  --md-tertiary:              var(--t-80);
+  --md-on-tertiary:           var(--t-20);
+  --md-tertiary-container:    var(--t-30);
+  --md-on-tertiary-container: var(--t-90);
+  --md-error:              #f2b8b5;
+  --md-on-error:           #601410;
+  --md-error-container:    #8c1d18;
+  --md-on-error-container: #f9dedc;
+  --md-surface:                    var(--n-6);
+  --md-on-surface:                 var(--n-90);
+  --md-surface-variant:            var(--nv-30);
+  --md-on-surface-variant:         var(--nv-80);
+  --md-surface-container-lowest:   var(--n-4);
+  --md-surface-container-low:      var(--n-10);
+  --md-surface-container:          var(--n-12);
+  --md-surface-container-high:     var(--n-17);
+  --md-surface-container-highest:  var(--n-22);
+  --md-outline:          var(--nv-60);
+  --md-outline-variant:  var(--nv-30);
+  --md-inverse-surface:  var(--n-90);
+  --md-inverse-on-surface: var(--n-20);
+  --md-inverse-primary:  var(--p-40);
+  /* ── 视频主题契约映射 ── */
+  --shell:      var(--n-4);
+  --surface:    var(--md-surface);
+  --surface-2:  var(--md-surface-container);
+  --surface-3:  var(--md-surface-container-high);
+  --text:       var(--md-on-surface);
+  --text-2:     var(--md-on-surface-variant);
+  --text-mute:  var(--nv-60);
+  --text-faint: var(--nv-50);
+  --rule:       var(--md-outline-variant);
+  --accent:     var(--md-primary);
+  --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
+  --accent-glow: color-mix(in oklab, var(--accent) 55%, transparent);
+
+  /* ═══ 字体 ═══ */
+  --font-display-cn: "Noto Sans SC", "Source Han Sans SC", -apple-system, sans-serif;
+  --font-display-en: "Roboto Flex", "Roboto", "Helvetica Neue", -apple-system, sans-serif;
+  --font-body:       "Roboto", "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono:       "Roboto Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-features:   "tnum", "ss01";
+
+  /* ── MD3 shape scale ── */
+  --md-shape-none: 0px;
+  --md-shape-xs:   4px;
+  --md-shape-s:    8px;
+  --md-shape-m:    12px;
+  --md-shape-l:    16px;
+  --md-shape-xl:   28px;
+  --md-shape-full: 999px;
+  --r-card:        16px;
+
+  /* ── 时长（M3 duration tokens 的视频版放大）── */
+  --md-dur-short-1: 100ms;
+  --md-dur-short-2: 150ms;
+  --md-dur-short-3: 200ms;
+  --md-dur-medium-1: 400ms;
+  --md-dur-medium-2: 600ms;
+  --md-dur-long-1: 900ms;
+  --md-dur-long-2: 1170ms;
+
+  /* ── 通用动效变量映射到 M3，让 primitive class 自动带 M3 手感 ── */
+  --ease-quart:     var(--md-ease-emphasized);
+  --ease-expo:      var(--md-ease-emphasized-decelerate);
+  --ease-soft:      var(--md-ease-standard);
+  --ease-overshoot: var(--md-spring-bouncy);
+  --dur-quick:      200ms;
+  --dur-base:       400ms;
+  --dur-slow:       600ms;
+  --dur-cinematic:  900ms;
+  --md-spring:      var(--md-spring-default);
+
+  /* ── MD3 motion：easing 曲线（spec 原值）── */
+  --md-ease-emphasized:            cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-ease-standard:              cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-standard-decelerate:   cubic-bezier(0, 0, 0, 1);
+  --md-ease-standard-accelerate:   cubic-bezier(0.3, 0, 1, 1);
+
+  /* ── MD3 Expressive：弹簧（damped spring 采样成 CSS linear()）── */
+  --md-spring-fast:    linear(0, 0.051 4.0%, 0.168 8.0%, 0.313 12.0%, 0.459 16.0%, 0.593 20.0%, 0.708 24.0%, 0.800 28.0%, 0.871 32.0%, 0.924 36.0%, 0.961 40.0%, 0.986 44.0%, 1.002 48.0%, 1.010 52.0%, 1.014 56.0%, 1.015 60.0%, 1.014 64.0%, 1.012 68.0%, 1.010 72.0%, 1.008 76.0%, 1.006 80.0%, 1.004 84.0%, 1.003 88.0%, 1.002 92.0%, 1.001 96.0%, 1);
+  --md-spring-default: linear(0, 0.058 4.0%, 0.191 8.0%, 0.352 12.0%, 0.513 16.0%, 0.656 20.0%, 0.774 24.0%, 0.865 28.0%, 0.932 32.0%, 0.977 36.0%, 1.005 40.0%, 1.021 44.0%, 1.027 48.0%, 1.028 52.0%, 1.026 56.0%, 1.022 60.0%, 1.017 64.0%, 1.013 68.0%, 1.009 72.0%, 1.006 76.0%, 1.003 80.0%, 1.001 84.0%, 1.000 88.0%, 1.000 92.0%, 0.999 96.0%, 1);
+  --md-spring-slow:    linear(0, 0.045 4.0%, 0.150 8.0%, 0.280 12.0%, 0.413 16.0%, 0.538 20.0%, 0.647 24.0%, 0.739 28.0%, 0.813 32.0%, 0.870 36.0%, 0.914 40.0%, 0.946 44.0%, 0.969 48.0%, 0.984 52.0%, 0.994 56.0%, 1.001 60.0%, 1.004 64.0%, 1.006 68.0%, 1.006 72.0%, 1.006 76.0%, 1.005 80.0%, 1.005 84.0%, 1.004 88.0%, 1.003 92.0%, 1.002 96.0%, 1);
+  --md-spring-bouncy:  linear(0, 0.180 4.0%, 0.553 8.0%, 0.912 12.0%, 1.146 16.0%, 1.232 20.0%, 1.204 24.0%, 1.121 28.0%, 1.034 32.0%, 0.973 36.0%, 0.947 40.0%, 0.950 44.0%, 0.968 48.0%, 0.989 52.0%, 1.004 56.0%, 1.012 60.0%, 1.012 64.0%, 1.008 68.0%, 1.004 72.0%, 1.000 76.0%, 0.997 80.0%, 0.997 84.0%, 0.998 88.0%, 0.999 92.0%, 1.000 96.0%, 1);
+
+  /* ═══ 舞台性格 ═══ */
+  --r-stage:       0;
+  --rule-w:        1px;
+  --rule-style:    solid;
+  --hero-num-font:   var(--font-display-en);
+  --hero-num-style:  normal;
+  --hero-num-weight: 500;
+  --hero-num-track:  -0.02em;
+  --stage-pad-x:   100px;
+  --stage-pad-y:   80px;
+  --card-shadow:   0 1px 2px rgba(0,0,0,0.30), 0 2px 8px 2px rgba(0,0,0,0.18);
+  --card-glass-bg:     color-mix(in oklab, var(--md-surface-container-high) 72%, transparent);
+  --card-glass-border: color-mix(in oklab, var(--md-outline-variant) 55%, transparent);
+  --shadow-stage:  0 40px 120px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.04);
+  /* surface tint：主色极淡的顶部光晕，M3 深色表面的标志 */
+  --surface-pattern:
+    radial-gradient(1400px 900px at 8% -14%, color-mix(in oklab, var(--md-primary) 12%, transparent), transparent 68%);
+  --surface-pattern-size: auto;
+  --surface-pattern-blend: normal;
+  --surface-vignette:
+    radial-gradient(1600px 1100px at 50% 50%, transparent 55%, rgba(0,0,0,0.35) 100%);
+}
+
+/* ═══ 3. 动态推导：种子色 → 完整 M3 色调板 ═══ */
+@supports (color: oklch(from red l c h)) {
+  .m3[data-theme="m3-tonal-dark"] {
+    --p-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --p-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --p-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --p-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --p-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --p-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --p-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --p-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --p-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --p-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --p-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --p-100: #ffffff;
+    --s-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --s-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --s-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --s-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --s-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --s-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --s-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --s-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --s-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --s-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --s-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --s-100: #ffffff;
+    --t-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) calc(h + 60));
+    --t-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) calc(h + 60));
+    --t-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) calc(h + 60));
+    --t-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) calc(h + 60));
+    --t-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) calc(h + 60));
+    --t-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) calc(h + 60));
+    --t-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) calc(h + 60));
+    --t-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) calc(h + 60));
+    --t-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) calc(h + 60));
+    --t-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) calc(h + 60));
+    --t-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) calc(h + 60));
+    --t-100: #ffffff;
+    --n-4: oklch(from var(--seed) 0.1645 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-6: oklch(from var(--seed) 0.1874 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-12: oklch(from var(--seed) 0.245 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-17: oklch(from var(--seed) 0.286 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-22: oklch(from var(--seed) 0.33 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-24: oklch(from var(--seed) 0.346 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-87: oklch(from var(--seed) 0.89 min(calc(c * 0.55 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-92: oklch(from var(--seed) 0.933 min(calc(c * 0.3 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-94: oklch(from var(--seed) 0.954 min(calc(c * 0.24 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-96: oklch(from var(--seed) 0.967 min(calc(c * 0.17 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-98: oklch(from var(--seed) 0.984 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-100: #ffffff;
+    --nv-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-100: #ffffff;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * M3 视频原语（可选）—— 给章节用的最小集合，不是 UI 组件库
+ *
+ *   .m3-card      色调容器（surface-container + 主题圆角）
+ *   .m3-chip      小标签（pill / 描边）
+ *   .m3-tab       小节标签（视频上方的那个小 tab）
+ *   .m3-kicker    小号大写标签
+ *   .m3-rule      发丝分割线
+ *   .m3-shape     色块 / 形状（圆角跟主题走）
+ *   .m3-progress  线性进度（4dp，M3 spec）
+ *
+ * 尺寸按 1920×1080 舞台给。
+ * ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Theme · m3-vibrant
+ *   高饱和 M3：色块容器 + 24px 圆角，节奏明快，适合对外传播。
+ *
+ *   动态取色（dynamic color）：
+ *     只改下面 ── 1. 种子色 ── 里的 --seed 一个值，
+ *     整套 MD3 色调板 + 30 个语义色角色会按 OKLCH 自动重算。
+ *     --chroma 控制饱和度（0 = 纯灰，1 = 种子原样，>1 = 更鲜艳）。
+ *
+ *   兼容：不支持 oklch(from …) 的浏览器自动退回静态兜底色调板（也是
+ *   一套合法的 M3 配色，只是不再跟随 --seed）。
+ * ───────────────────────────────────────────────────────────────────── */
+.m3[data-theme="m3-vibrant"] {
+  /* ═══ 1. 种子色 ═══ */
+  --seed: #00696e;
+  --chroma: 1.6;
+  --neutral-chroma: 1.5;
+  --variant-chroma: 0.18;
+
+  /* ═══ 2. 静态兜底色调板（baseline 推导，不支持相对色时使用）═══ */
+  --p-10: #002325;
+  --p-20: #00393c;
+  --p-30: #005256;
+  --p-40: #006f74;
+  --p-50: #00888f;
+  --p-60: #00a6ad;
+  --p-70: #00c4cc;
+  --p-80: #77dae0;
+  --p-90: #bfedf0;
+  --p-95: #dff7f8;
+  --p-99: #f8fefe;
+  --p-100: #ffffff;
+  --s-10: #002325;
+  --s-20: #0e383a;
+  --s-30: #274f51;
+  --s-40: #41696b;
+  --s-50: #588082;
+  --s-60: #719b9d;
+  --s-70: #8bb5b8;
+  --s-80: #b0cfd0;
+  --s-90: #d7e7e8;
+  --s-95: #ebf3f4;
+  --s-99: #fbfdfd;
+  --s-100: #ffffff;
+  --t-10: #081c3d;
+  --t-20: #1b3054;
+  --t-30: #31476e;
+  --t-40: #4a6189;
+  --t-50: #6078a2;
+  --t-60: #7993be;
+  --t-70: #93adda;
+  --t-80: #b5c9ea;
+  --t-90: #d9e4f5;
+  --t-95: #ecf2fb;
+  --t-99: #fbfcff;
+  --t-100: #ffffff;
+  --n-4: #061011;
+  --n-6: #0a1516;
+  --n-10: #142020;
+  --n-12: #172323;
+  --n-17: #212d2d;
+  --n-20: #283334;
+  --n-22: #2c3839;
+  --n-24: #303c3d;
+  --n-30: #3e4a4b;
+  --n-50: #6d7b7b;
+  --n-60: #879596;
+  --n-80: #bccbcc;
+  --n-87: #cfdedf;
+  --n-90: #d8e7e7;
+  --n-92: #ddeced;
+  --n-94: #e4f3f4;
+  --n-95: #e6f5f6;
+  --n-96: #e8f8f8;
+  --n-98: #f0fdfe;
+  --n-99: #f7fefe;
+  --n-100: #ffffff;
+  --nv-30: #3a4b4c;
+  --nv-50: #697c7d;
+  --nv-60: #839697;
+  --nv-80: #bccbcc;
+  --nv-90: #dde5e5;
+
+  /* ── MD3 语义色角色（light scheme）── */
+  --md-primary:              var(--p-40);
+  --md-on-primary:           #ffffff;
+  --md-primary-container:    var(--p-80);
+  --md-on-primary-container: var(--p-20);
+  --md-secondary:              var(--s-40);
+  --md-on-secondary:           #ffffff;
+  --md-secondary-container:    var(--s-80);
+  --md-on-secondary-container: var(--s-20);
+  --md-tertiary:              var(--t-40);
+  --md-on-tertiary:           #ffffff;
+  --md-tertiary-container:    var(--t-80);
+  --md-on-tertiary-container: var(--t-20);
+  --md-error:              #b3261e;
+  --md-on-error:           #ffffff;
+  --md-error-container:    #f9dedc;
+  --md-on-error-container: #410e0b;
+  --md-surface:                    var(--n-98);
+  --md-on-surface:                 var(--n-10);
+  --md-surface-variant:            var(--nv-90);
+  --md-on-surface-variant:         var(--nv-30);
+  --md-surface-container-lowest:   #ffffff;
+  --md-surface-container-low:      var(--n-96);
+  --md-surface-container:          var(--n-94);
+  --md-surface-container-high:     var(--n-92);
+  --md-surface-container-highest:  var(--n-90);
+  --md-outline:          var(--nv-50);
+  --md-outline-variant:  var(--nv-80);
+  --md-inverse-surface:  var(--n-20);
+  --md-inverse-on-surface: var(--n-95);
+  --md-inverse-primary:  var(--p-80);
+  /* ── 视频主题契约映射 ── */
+  --shell:      var(--n-92);
+  --surface:    var(--md-surface);
+  --surface-2:  var(--md-surface-container);
+  --surface-3:  var(--md-surface-container-high);
+  --text:       var(--md-on-surface);
+  --text-2:     var(--md-on-surface-variant);
+  --text-mute:  color-mix(in oklab, var(--nv-50) 80%, var(--nv-30));
+  --text-faint: color-mix(in oklab, var(--nv-60) 55%, var(--nv-50));
+  --rule:       var(--md-outline-variant);
+  --accent:     var(--md-primary);
+  --accent-soft: color-mix(in oklab, var(--accent) 11%, transparent);
+  --accent-glow: color-mix(in oklab, var(--accent) 42%, transparent);
+
+  /* ═══ 字体 ═══ */
+  --font-display-cn: "Noto Sans SC", "Source Han Sans SC", -apple-system, sans-serif;
+  --font-display-en: "Roboto Flex", "Roboto", "Helvetica Neue", -apple-system, sans-serif;
+  --font-body:       "Roboto", "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono:       "Roboto Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-features:   "tnum", "ss01";
+
+  /* ── MD3 shape scale（Expressive 加大版）── */
+  --md-shape-none: 0px;
+  --md-shape-xs:   8px;
+  --md-shape-s:    12px;
+  --md-shape-m:    16px;
+  --md-shape-l:    24px;
+  --md-shape-xl:   32px;
+  --md-shape-xxl:  40px;
+  --md-shape-full: 999px;
+  --r-card:        24px;
+
+  /* ── 时长（M3 duration tokens 的视频版放大）── */
+  --md-dur-short-1: 100ms;
+  --md-dur-short-2: 150ms;
+  --md-dur-short-3: 180ms;
+  --md-dur-medium-1: 340ms;
+  --md-dur-medium-2: 500ms;
+  --md-dur-long-1: 750ms;
+  --md-dur-long-2: 975ms;
+
+  /* ── 通用动效变量映射到 M3，让 primitive class 自动带 M3 手感 ── */
+  --ease-quart:     var(--md-ease-emphasized);
+  --ease-expo:      var(--md-ease-emphasized-decelerate);
+  --ease-soft:      var(--md-ease-standard);
+  --ease-overshoot: var(--md-spring-bouncy);
+  --dur-quick:      180ms;
+  --dur-base:       340ms;
+  --dur-slow:       500ms;
+  --dur-cinematic:  750ms;
+  --md-spring:      var(--md-spring-default);
+
+  /* ── MD3 motion：easing 曲线（spec 原值）── */
+  --md-ease-emphasized:            cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-ease-standard:              cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-standard-decelerate:   cubic-bezier(0, 0, 0, 1);
+  --md-ease-standard-accelerate:   cubic-bezier(0.3, 0, 1, 1);
+
+  /* ── MD3 Expressive：弹簧（damped spring 采样成 CSS linear()）── */
+  --md-spring-fast:    linear(0, 0.051 4.0%, 0.168 8.0%, 0.313 12.0%, 0.459 16.0%, 0.593 20.0%, 0.708 24.0%, 0.800 28.0%, 0.871 32.0%, 0.924 36.0%, 0.961 40.0%, 0.986 44.0%, 1.002 48.0%, 1.010 52.0%, 1.014 56.0%, 1.015 60.0%, 1.014 64.0%, 1.012 68.0%, 1.010 72.0%, 1.008 76.0%, 1.006 80.0%, 1.004 84.0%, 1.003 88.0%, 1.002 92.0%, 1.001 96.0%, 1);
+  --md-spring-default: linear(0, 0.058 4.0%, 0.191 8.0%, 0.352 12.0%, 0.513 16.0%, 0.656 20.0%, 0.774 24.0%, 0.865 28.0%, 0.932 32.0%, 0.977 36.0%, 1.005 40.0%, 1.021 44.0%, 1.027 48.0%, 1.028 52.0%, 1.026 56.0%, 1.022 60.0%, 1.017 64.0%, 1.013 68.0%, 1.009 72.0%, 1.006 76.0%, 1.003 80.0%, 1.001 84.0%, 1.000 88.0%, 1.000 92.0%, 0.999 96.0%, 1);
+  --md-spring-slow:    linear(0, 0.045 4.0%, 0.150 8.0%, 0.280 12.0%, 0.413 16.0%, 0.538 20.0%, 0.647 24.0%, 0.739 28.0%, 0.813 32.0%, 0.870 36.0%, 0.914 40.0%, 0.946 44.0%, 0.969 48.0%, 0.984 52.0%, 0.994 56.0%, 1.001 60.0%, 1.004 64.0%, 1.006 68.0%, 1.006 72.0%, 1.006 76.0%, 1.005 80.0%, 1.005 84.0%, 1.004 88.0%, 1.003 92.0%, 1.002 96.0%, 1);
+  --md-spring-bouncy:  linear(0, 0.180 4.0%, 0.553 8.0%, 0.912 12.0%, 1.146 16.0%, 1.232 20.0%, 1.204 24.0%, 1.121 28.0%, 1.034 32.0%, 0.973 36.0%, 0.947 40.0%, 0.950 44.0%, 0.968 48.0%, 0.989 52.0%, 1.004 56.0%, 1.012 60.0%, 1.012 64.0%, 1.008 68.0%, 1.004 72.0%, 1.000 76.0%, 0.997 80.0%, 0.997 84.0%, 0.998 88.0%, 0.999 92.0%, 1.000 96.0%, 1);
+
+  /* ═══ 舞台性格 ═══ */
+  --r-stage:       0;
+  --rule-w:        1px;
+  --rule-style:    solid;
+  --hero-num-font:   var(--font-display-en);
+  --hero-num-style:  normal;
+  --hero-num-weight: 700;
+  --hero-num-track:  -0.03em;
+  --stage-pad-x:   96px;
+  --stage-pad-y:   80px;
+  --card-shadow:   0 1px 2px rgba(0,0,0,0.06), 0 4px 12px 2px rgba(0,0,0,0.06);
+  --card-glass-bg:     color-mix(in oklab, var(--md-surface-container-high) 78%, transparent);
+  --card-glass-border: color-mix(in oklab, var(--md-outline-variant) 55%, transparent);
+  --shadow-stage:  0 32px 96px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.03);
+  /* 双色柔和光斑：primary + tertiary，只做氛围不抢内容 */
+  --surface-pattern:
+    radial-gradient(1100px 760px at 92% -8%, color-mix(in oklab, var(--md-primary) 14%, transparent), transparent 66%),
+    radial-gradient(900px 700px at -6% 104%, color-mix(in oklab, var(--md-tertiary) 12%, transparent), transparent 62%);
+  --surface-pattern-size: auto;
+  --surface-vignette: none;
+}
+
+/* ═══ 3. 动态推导：种子色 → 完整 M3 色调板 ═══ */
+@supports (color: oklch(from red l c h)) {
+  .m3[data-theme="m3-vibrant"] {
+    --p-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --p-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --p-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --p-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --p-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --p-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --p-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --p-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --p-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --p-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --p-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --p-100: #ffffff;
+    --s-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --s-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --s-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --s-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --s-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --s-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --s-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --s-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --s-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --s-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --s-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --s-100: #ffffff;
+    --t-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) calc(h + 60));
+    --t-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) calc(h + 60));
+    --t-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) calc(h + 60));
+    --t-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) calc(h + 60));
+    --t-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) calc(h + 60));
+    --t-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) calc(h + 60));
+    --t-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) calc(h + 60));
+    --t-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) calc(h + 60));
+    --t-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) calc(h + 60));
+    --t-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) calc(h + 60));
+    --t-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) calc(h + 60));
+    --t-100: #ffffff;
+    --n-4: oklch(from var(--seed) 0.1645 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-6: oklch(from var(--seed) 0.1874 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-12: oklch(from var(--seed) 0.245 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-17: oklch(from var(--seed) 0.286 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-22: oklch(from var(--seed) 0.33 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-24: oklch(from var(--seed) 0.346 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-87: oklch(from var(--seed) 0.89 min(calc(c * 0.55 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-92: oklch(from var(--seed) 0.933 min(calc(c * 0.3 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-94: oklch(from var(--seed) 0.954 min(calc(c * 0.24 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-96: oklch(from var(--seed) 0.967 min(calc(c * 0.17 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-98: oklch(from var(--seed) 0.984 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-100: #ffffff;
+    --nv-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-100: #ffffff;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * M3 视频原语（可选）—— 给章节用的最小集合，不是 UI 组件库
+ *
+ *   .m3-card      色调容器（surface-container + 主题圆角）
+ *   .m3-chip      小标签（pill / 描边）
+ *   .m3-tab       小节标签（视频上方的那个小 tab）
+ *   .m3-kicker    小号大写标签
+ *   .m3-rule      发丝分割线
+ *   .m3-shape     色块 / 形状（圆角跟主题走）
+ *   .m3-progress  线性进度（4dp，M3 spec）
+ *
+ * 尺寸按 1920×1080 舞台给。
+ * ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Theme · m3-expressive
+ *   M3 Expressive 浅色：超大圆角 + 弹簧回弹 + 强调字重，友好而有能量。
+ *
+ *   动态取色（dynamic color）：
+ *     只改下面 ── 1. 种子色 ── 里的 --seed 一个值，
+ *     整套 MD3 色调板 + 30 个语义色角色会按 OKLCH 自动重算。
+ *     --chroma 控制饱和度（0 = 纯灰，1 = 种子原样，>1 = 更鲜艳）。
+ *
+ *   兼容：不支持 oklch(from …) 的浏览器自动退回静态兜底色调板（也是
+ *   一套合法的 M3 配色，只是不再跟随 --seed）。
+ * ───────────────────────────────────────────────────────────────────── */
+.m3[data-theme="m3-expressive"] {
+  /* ═══ 1. 种子色 ═══ */
+  --seed: #e8542f;
+  --chroma: 1.25;
+  --neutral-chroma: 1.3;
+  --variant-chroma: 0.16;
+
+  /* ═══ 2. 静态兜底色调板（baseline 推导，不支持相对色时使用）═══ */
+  --p-10: #3b0800;
+  --p-20: #5c1200;
+  --p-30: #821d00;
+  --p-40: #ad2a00;
+  --p-50: #cb421e;
+  --p-60: #e26749;
+  --p-70: #f7896e;
+  --p-80: #ffb29e;
+  --p-90: #ffdad0;
+  --p-95: #ffede8;
+  --p-99: #fffcfb;
+  --p-100: #ffffff;
+  --s-10: #3b0800;
+  --s-20: #531e10;
+  --s-30: #6d3527;
+  --s-40: #8a4f40;
+  --s-50: #a36556;
+  --s-60: #bf7f6f;
+  --s-70: #db9a89;
+  --s-80: #ecbaad;
+  --s-90: #f7ddd6;
+  --s-95: #fceeea;
+  --s-99: #fffcfb;
+  --s-100: #ffffff;
+  --t-10: #241d00;
+  --t-20: #3b3000;
+  --t-30: #554600;
+  --t-40: #736000;
+  --t-50: #8d7600;
+  --t-60: #ab9013;
+  --t-70: #c6ab3c;
+  --t-80: #dbc77e;
+  --t-90: #ede4c0;
+  --t-95: #f7f2de;
+  --t-99: #fefcf8;
+  --t-100: #ffffff;
+  --n-4: #140c0a;
+  --n-6: #1a110e;
+  --n-10: #241b18;
+  --n-12: #281e1b;
+  --n-17: #322825;
+  --n-20: #382e2b;
+  --n-22: #3d3330;
+  --n-24: #413734;
+  --n-30: #504542;
+  --n-50: #817571;
+  --n-60: #9b8f8b;
+  --n-80: #d2c4c1;
+  --n-87: #e5d7d4;
+  --n-90: #eee0dc;
+  --n-92: #f3e5e2;
+  --n-94: #faece9;
+  --n-95: #fceeea;
+  --n-96: #fff1ed;
+  --n-98: #fff8f6;
+  --n-99: #fffcfb;
+  --n-100: #ffffff;
+  --nv-30: #53433f;
+  --nv-50: #84736f;
+  --nv-60: #9f8d89;
+  --nv-80: #d5c3be;
+  --nv-90: #ece0dd;
+
+  /* ── MD3 语义色角色（light scheme）── */
+  --md-primary:              var(--p-40);
+  --md-on-primary:           #ffffff;
+  --md-primary-container:    var(--p-90);
+  --md-on-primary-container: var(--p-10);
+  --md-secondary:              var(--s-40);
+  --md-on-secondary:           #ffffff;
+  --md-secondary-container:    var(--s-90);
+  --md-on-secondary-container: var(--s-10);
+  --md-tertiary:              var(--t-40);
+  --md-on-tertiary:           #ffffff;
+  --md-tertiary-container:    var(--t-90);
+  --md-on-tertiary-container: var(--t-10);
+  --md-error:              #b3261e;
+  --md-on-error:           #ffffff;
+  --md-error-container:    #f9dedc;
+  --md-on-error-container: #410e0b;
+  --md-surface:                    var(--n-98);
+  --md-on-surface:                 var(--n-10);
+  --md-surface-variant:            var(--nv-90);
+  --md-on-surface-variant:         var(--nv-30);
+  --md-surface-container-lowest:   #ffffff;
+  --md-surface-container-low:      var(--n-96);
+  --md-surface-container:          var(--n-94);
+  --md-surface-container-high:     var(--n-92);
+  --md-surface-container-highest:  var(--n-90);
+  --md-outline:          var(--nv-50);
+  --md-outline-variant:  var(--nv-80);
+  --md-inverse-surface:  var(--n-20);
+  --md-inverse-on-surface: var(--n-95);
+  --md-inverse-primary:  var(--p-80);
+  /* ── 视频主题契约映射 ── */
+  --shell:      var(--n-92);
+  --surface:    var(--md-surface);
+  --surface-2:  var(--md-surface-container);
+  --surface-3:  var(--md-surface-container-high);
+  --text:       var(--md-on-surface);
+  --text-2:     var(--md-on-surface-variant);
+  --text-mute:  color-mix(in oklab, var(--nv-50) 80%, var(--nv-30));
+  --text-faint: color-mix(in oklab, var(--nv-60) 55%, var(--nv-50));
+  --rule:       var(--md-outline-variant);
+  --accent:     var(--md-primary);
+  --accent-soft: color-mix(in oklab, var(--accent) 11%, transparent);
+  --accent-glow: color-mix(in oklab, var(--accent) 42%, transparent);
+
+  /* ═══ 字体 ═══ */
+  --font-display-cn: "Noto Sans SC", "Source Han Sans SC", -apple-system, sans-serif;
+  --font-display-en: "Roboto Flex", "Roboto", "Helvetica Neue", -apple-system, sans-serif;
+  --font-body:       "Roboto", "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono:       "Roboto Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-features:   "tnum", "ss01";
+
+  /* ── MD3 shape scale（Expressive 加大版）── */
+  --md-shape-none: 0px;
+  --md-shape-xs:   8px;
+  --md-shape-s:    12px;
+  --md-shape-m:    20px;
+  --md-shape-l:    28px;
+  --md-shape-xl:   36px;
+  --md-shape-xxl:  48px;
+  --md-shape-full: 999px;
+  --r-card:        36px;
+
+  /* ── 时长（M3 duration tokens 的视频版放大）── */
+  --md-dur-short-1: 100ms;
+  --md-dur-short-2: 150ms;
+  --md-dur-short-3: 160ms;
+  --md-dur-medium-1: 300ms;
+  --md-dur-medium-2: 450ms;
+  --md-dur-long-1: 700ms;
+  --md-dur-long-2: 910ms;
+
+  /* ── 通用动效变量映射到 M3，让 primitive class 自动带 M3 手感 ── */
+  --ease-quart:     var(--md-ease-emphasized);
+  --ease-expo:      var(--md-ease-emphasized-decelerate);
+  --ease-soft:      var(--md-ease-standard);
+  --ease-overshoot: var(--md-spring-bouncy);
+  --dur-quick:      160ms;
+  --dur-base:       300ms;
+  --dur-slow:       450ms;
+  --dur-cinematic:  700ms;
+  --md-spring:      var(--md-spring-default);
+
+  /* ── MD3 motion：easing 曲线（spec 原值）── */
+  --md-ease-emphasized:            cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-ease-standard:              cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-standard-decelerate:   cubic-bezier(0, 0, 0, 1);
+  --md-ease-standard-accelerate:   cubic-bezier(0.3, 0, 1, 1);
+
+  /* ── MD3 Expressive：弹簧（damped spring 采样成 CSS linear()）── */
+  --md-spring-fast:    linear(0, 0.051 4.0%, 0.168 8.0%, 0.313 12.0%, 0.459 16.0%, 0.593 20.0%, 0.708 24.0%, 0.800 28.0%, 0.871 32.0%, 0.924 36.0%, 0.961 40.0%, 0.986 44.0%, 1.002 48.0%, 1.010 52.0%, 1.014 56.0%, 1.015 60.0%, 1.014 64.0%, 1.012 68.0%, 1.010 72.0%, 1.008 76.0%, 1.006 80.0%, 1.004 84.0%, 1.003 88.0%, 1.002 92.0%, 1.001 96.0%, 1);
+  --md-spring-default: linear(0, 0.058 4.0%, 0.191 8.0%, 0.352 12.0%, 0.513 16.0%, 0.656 20.0%, 0.774 24.0%, 0.865 28.0%, 0.932 32.0%, 0.977 36.0%, 1.005 40.0%, 1.021 44.0%, 1.027 48.0%, 1.028 52.0%, 1.026 56.0%, 1.022 60.0%, 1.017 64.0%, 1.013 68.0%, 1.009 72.0%, 1.006 76.0%, 1.003 80.0%, 1.001 84.0%, 1.000 88.0%, 1.000 92.0%, 0.999 96.0%, 1);
+  --md-spring-slow:    linear(0, 0.045 4.0%, 0.150 8.0%, 0.280 12.0%, 0.413 16.0%, 0.538 20.0%, 0.647 24.0%, 0.739 28.0%, 0.813 32.0%, 0.870 36.0%, 0.914 40.0%, 0.946 44.0%, 0.969 48.0%, 0.984 52.0%, 0.994 56.0%, 1.001 60.0%, 1.004 64.0%, 1.006 68.0%, 1.006 72.0%, 1.006 76.0%, 1.005 80.0%, 1.005 84.0%, 1.004 88.0%, 1.003 92.0%, 1.002 96.0%, 1);
+  --md-spring-bouncy:  linear(0, 0.180 4.0%, 0.553 8.0%, 0.912 12.0%, 1.146 16.0%, 1.232 20.0%, 1.204 24.0%, 1.121 28.0%, 1.034 32.0%, 0.973 36.0%, 0.947 40.0%, 0.950 44.0%, 0.968 48.0%, 0.989 52.0%, 1.004 56.0%, 1.012 60.0%, 1.012 64.0%, 1.008 68.0%, 1.004 72.0%, 1.000 76.0%, 0.997 80.0%, 0.997 84.0%, 0.998 88.0%, 0.999 92.0%, 1.000 96.0%, 1);
+
+  /* ═══ 舞台性格 ═══ */
+  --r-stage:       0;
+  --rule-w:        1px;
+  --rule-style:    solid;
+  --hero-num-font:   var(--font-display-en);
+  --hero-num-style:  normal;
+  --hero-num-weight: 800;
+  --hero-num-track:  -0.045em;
+  --stage-pad-x:   96px;
+  --stage-pad-y:   80px;
+  --card-shadow:   0 1px 3px 1px rgba(0,0,0,0.07), 0 2px 6px rgba(0,0,0,0.05);
+  --card-glass-bg:     color-mix(in oklab, var(--md-surface-container-high) 80%, transparent);
+  --card-glass-border: color-mix(in oklab, var(--md-outline-variant) 55%, transparent);
+  --shadow-stage:  0 36px 110px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.03);
+  /* Expressive：两团大色斑，形状语言的一部分 */
+  --surface-pattern:
+    radial-gradient(1200px 820px at 96% -12%, color-mix(in oklab, var(--md-primary) 16%, transparent), transparent 64%),
+    radial-gradient(1000px 760px at -8% 108%, color-mix(in oklab, var(--md-tertiary) 14%, transparent), transparent 60%);
+  --surface-pattern-size: auto;
+  --surface-vignette: none;
+}
+
+/* ═══ 3. 动态推导：种子色 → 完整 M3 色调板 ═══ */
+@supports (color: oklch(from red l c h)) {
+  .m3[data-theme="m3-expressive"] {
+    --p-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --p-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --p-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --p-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --p-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --p-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --p-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --p-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --p-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --p-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --p-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --p-100: #ffffff;
+    --s-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --s-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --s-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --s-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --s-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --s-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --s-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --s-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --s-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --s-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --s-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --s-100: #ffffff;
+    --t-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) calc(h + 60));
+    --t-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) calc(h + 60));
+    --t-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) calc(h + 60));
+    --t-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) calc(h + 60));
+    --t-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) calc(h + 60));
+    --t-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) calc(h + 60));
+    --t-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) calc(h + 60));
+    --t-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) calc(h + 60));
+    --t-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) calc(h + 60));
+    --t-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) calc(h + 60));
+    --t-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) calc(h + 60));
+    --t-100: #ffffff;
+    --n-4: oklch(from var(--seed) 0.1645 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-6: oklch(from var(--seed) 0.1874 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-12: oklch(from var(--seed) 0.245 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-17: oklch(from var(--seed) 0.286 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-22: oklch(from var(--seed) 0.33 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-24: oklch(from var(--seed) 0.346 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-87: oklch(from var(--seed) 0.89 min(calc(c * 0.55 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-92: oklch(from var(--seed) 0.933 min(calc(c * 0.3 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-94: oklch(from var(--seed) 0.954 min(calc(c * 0.24 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-96: oklch(from var(--seed) 0.967 min(calc(c * 0.17 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-98: oklch(from var(--seed) 0.984 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-100: #ffffff;
+    --nv-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-100: #ffffff;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * M3 视频原语（可选）—— 给章节用的最小集合，不是 UI 组件库
+ *
+ *   .m3-card      色调容器（surface-container + 主题圆角）
+ *   .m3-chip      小标签（pill / 描边）
+ *   .m3-tab       小节标签（视频上方的那个小 tab）
+ *   .m3-kicker    小号大写标签
+ *   .m3-rule      发丝分割线
+ *   .m3-shape     色块 / 形状（圆角跟主题走）
+ *   .m3-progress  线性进度（4dp，M3 spec）
+ *
+ * 尺寸按 1920×1080 舞台给。
+ * ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Theme · m3-expressive-dark
+ *   M3 Expressive 深色：黑底高饱和容器 + 回弹动效，戏剧性强。
+ *
+ *   动态取色（dynamic color）：
+ *     只改下面 ── 1. 种子色 ── 里的 --seed 一个值，
+ *     整套 MD3 色调板 + 30 个语义色角色会按 OKLCH 自动重算。
+ *     --chroma 控制饱和度（0 = 纯灰，1 = 种子原样，>1 = 更鲜艳）。
+ *
+ *   兼容：不支持 oklch(from …) 的浏览器自动退回静态兜底色调板（也是
+ *   一套合法的 M3 配色，只是不再跟随 --seed）。
+ * ───────────────────────────────────────────────────────────────────── */
+.m3[data-theme="m3-expressive-dark"] {
+  /* ═══ 1. 种子色 ═══ */
+  --seed: #e8542f;
+  --chroma: 1.25;
+  --neutral-chroma: 1.2;
+  --variant-chroma: 0.15;
+
+  /* ═══ 2. 静态兜底色调板（baseline 推导，不支持相对色时使用）═══ */
+  --p-10: #3b0800;
+  --p-20: #5c1200;
+  --p-30: #821d00;
+  --p-40: #ad2a00;
+  --p-50: #cb421e;
+  --p-60: #e26749;
+  --p-70: #f7896e;
+  --p-80: #ffb29e;
+  --p-90: #ffdad0;
+  --p-95: #ffede8;
+  --p-99: #fffcfb;
+  --p-100: #ffffff;
+  --s-10: #3b0800;
+  --s-20: #531e10;
+  --s-30: #6d3527;
+  --s-40: #8a4f40;
+  --s-50: #a36556;
+  --s-60: #bf7f6f;
+  --s-70: #db9a89;
+  --s-80: #ecbaad;
+  --s-90: #f7ddd6;
+  --s-95: #fceeea;
+  --s-99: #fffcfb;
+  --s-100: #ffffff;
+  --t-10: #241d00;
+  --t-20: #3b3000;
+  --t-30: #554600;
+  --t-40: #736000;
+  --t-50: #8d7600;
+  --t-60: #ab9013;
+  --t-70: #c6ab3c;
+  --t-80: #dbc77e;
+  --t-90: #ede4c0;
+  --t-95: #f7f2de;
+  --t-99: #fefcf8;
+  --t-100: #ffffff;
+  --n-4: #140c0a;
+  --n-6: #1a110e;
+  --n-10: #241b18;
+  --n-12: #281e1b;
+  --n-17: #322825;
+  --n-20: #382e2b;
+  --n-22: #3d3330;
+  --n-24: #413734;
+  --n-30: #504542;
+  --n-50: #817571;
+  --n-60: #9b8f8b;
+  --n-80: #d2c4c1;
+  --n-87: #e5d7d4;
+  --n-90: #eee0dc;
+  --n-92: #f3e5e2;
+  --n-94: #faece9;
+  --n-95: #fceeea;
+  --n-96: #fff1ed;
+  --n-98: #fff8f6;
+  --n-99: #fffcfb;
+  --n-100: #ffffff;
+  --nv-30: #53433f;
+  --nv-50: #84736f;
+  --nv-60: #9f8d89;
+  --nv-80: #d5c3be;
+  --nv-90: #ece0dd;
+
+  /* ── MD3 语义色角色（dark scheme）── */
+  --md-primary:              var(--p-80);
+  --md-on-primary:           var(--p-10);
+  --md-primary-container:    var(--p-30);
+  --md-on-primary-container: var(--p-90);
+  --md-secondary:              var(--s-80);
+  --md-on-secondary:           var(--s-20);
+  --md-secondary-container:    var(--s-30);
+  --md-on-secondary-container: var(--s-90);
+  --md-tertiary:              var(--t-80);
+  --md-on-tertiary:           var(--t-20);
+  --md-tertiary-container:    var(--t-30);
+  --md-on-tertiary-container: var(--t-90);
+  --md-error:              #f2b8b5;
+  --md-on-error:           #601410;
+  --md-error-container:    #8c1d18;
+  --md-on-error-container: #f9dedc;
+  --md-surface:                    var(--n-6);
+  --md-on-surface:                 var(--n-90);
+  --md-surface-variant:            var(--nv-30);
+  --md-on-surface-variant:         var(--nv-80);
+  --md-surface-container-lowest:   var(--n-4);
+  --md-surface-container-low:      var(--n-10);
+  --md-surface-container:          var(--n-12);
+  --md-surface-container-high:     var(--n-17);
+  --md-surface-container-highest:  var(--n-22);
+  --md-outline:          var(--nv-60);
+  --md-outline-variant:  var(--nv-30);
+  --md-inverse-surface:  var(--n-90);
+  --md-inverse-on-surface: var(--n-20);
+  --md-inverse-primary:  var(--p-40);
+  /* ── 视频主题契约映射 ── */
+  --shell:      var(--n-4);
+  --surface:    var(--md-surface);
+  --surface-2:  var(--md-surface-container);
+  --surface-3:  var(--md-surface-container-high);
+  --text:       var(--md-on-surface);
+  --text-2:     var(--md-on-surface-variant);
+  --text-mute:  var(--nv-60);
+  --text-faint: var(--nv-50);
+  --rule:       var(--md-outline-variant);
+  --accent:     var(--md-primary);
+  --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
+  --accent-glow: color-mix(in oklab, var(--accent) 55%, transparent);
+
+  /* ═══ 字体 ═══ */
+  --font-display-cn: "Noto Sans SC", "Source Han Sans SC", -apple-system, sans-serif;
+  --font-display-en: "Roboto Flex", "Roboto", "Helvetica Neue", -apple-system, sans-serif;
+  --font-body:       "Roboto", "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono:       "Roboto Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-features:   "tnum", "ss01";
+
+  /* ── MD3 shape scale（Expressive 加大版）── */
+  --md-shape-none: 0px;
+  --md-shape-xs:   10px;
+  --md-shape-s:    14px;
+  --md-shape-m:    22px;
+  --md-shape-l:    32px;
+  --md-shape-xl:   40px;
+  --md-shape-xxl:  52px;
+  --md-shape-full: 999px;
+  --r-card:        44px;
+
+  /* ── 时长（M3 duration tokens 的视频版放大）── */
+  --md-dur-short-1: 100ms;
+  --md-dur-short-2: 150ms;
+  --md-dur-short-3: 180ms;
+  --md-dur-medium-1: 340ms;
+  --md-dur-medium-2: 520ms;
+  --md-dur-long-1: 800ms;
+  --md-dur-long-2: 1040ms;
+
+  /* ── 通用动效变量映射到 M3，让 primitive class 自动带 M3 手感 ── */
+  --ease-quart:     var(--md-ease-emphasized);
+  --ease-expo:      var(--md-ease-emphasized-decelerate);
+  --ease-soft:      var(--md-ease-standard);
+  --ease-overshoot: var(--md-spring-bouncy);
+  --dur-quick:      180ms;
+  --dur-base:       340ms;
+  --dur-slow:       520ms;
+  --dur-cinematic:  800ms;
+  --md-spring:      var(--md-spring-default);
+
+  /* ── MD3 motion：easing 曲线（spec 原值）── */
+  --md-ease-emphasized:            cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-ease-standard:              cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-standard-decelerate:   cubic-bezier(0, 0, 0, 1);
+  --md-ease-standard-accelerate:   cubic-bezier(0.3, 0, 1, 1);
+
+  /* ── MD3 Expressive：弹簧（damped spring 采样成 CSS linear()）── */
+  --md-spring-fast:    linear(0, 0.051 4.0%, 0.168 8.0%, 0.313 12.0%, 0.459 16.0%, 0.593 20.0%, 0.708 24.0%, 0.800 28.0%, 0.871 32.0%, 0.924 36.0%, 0.961 40.0%, 0.986 44.0%, 1.002 48.0%, 1.010 52.0%, 1.014 56.0%, 1.015 60.0%, 1.014 64.0%, 1.012 68.0%, 1.010 72.0%, 1.008 76.0%, 1.006 80.0%, 1.004 84.0%, 1.003 88.0%, 1.002 92.0%, 1.001 96.0%, 1);
+  --md-spring-default: linear(0, 0.058 4.0%, 0.191 8.0%, 0.352 12.0%, 0.513 16.0%, 0.656 20.0%, 0.774 24.0%, 0.865 28.0%, 0.932 32.0%, 0.977 36.0%, 1.005 40.0%, 1.021 44.0%, 1.027 48.0%, 1.028 52.0%, 1.026 56.0%, 1.022 60.0%, 1.017 64.0%, 1.013 68.0%, 1.009 72.0%, 1.006 76.0%, 1.003 80.0%, 1.001 84.0%, 1.000 88.0%, 1.000 92.0%, 0.999 96.0%, 1);
+  --md-spring-slow:    linear(0, 0.045 4.0%, 0.150 8.0%, 0.280 12.0%, 0.413 16.0%, 0.538 20.0%, 0.647 24.0%, 0.739 28.0%, 0.813 32.0%, 0.870 36.0%, 0.914 40.0%, 0.946 44.0%, 0.969 48.0%, 0.984 52.0%, 0.994 56.0%, 1.001 60.0%, 1.004 64.0%, 1.006 68.0%, 1.006 72.0%, 1.006 76.0%, 1.005 80.0%, 1.005 84.0%, 1.004 88.0%, 1.003 92.0%, 1.002 96.0%, 1);
+  --md-spring-bouncy:  linear(0, 0.180 4.0%, 0.553 8.0%, 0.912 12.0%, 1.146 16.0%, 1.232 20.0%, 1.204 24.0%, 1.121 28.0%, 1.034 32.0%, 0.973 36.0%, 0.947 40.0%, 0.950 44.0%, 0.968 48.0%, 0.989 52.0%, 1.004 56.0%, 1.012 60.0%, 1.012 64.0%, 1.008 68.0%, 1.004 72.0%, 1.000 76.0%, 0.997 80.0%, 0.997 84.0%, 0.998 88.0%, 0.999 92.0%, 1.000 96.0%, 1);
+
+  /* ═══ 舞台性格 ═══ */
+  --r-stage:       0;
+  --rule-w:        1px;
+  --rule-style:    solid;
+  --hero-num-font:   var(--font-display-en);
+  --hero-num-style:  normal;
+  --hero-num-weight: 800;
+  --hero-num-track:  -0.045em;
+  --stage-pad-x:   96px;
+  --stage-pad-y:   80px;
+  --card-shadow:   0 1px 3px rgba(0,0,0,0.45), 0 8px 24px 4px rgba(0,0,0,0.30);
+  --card-glass-bg:     color-mix(in oklab, var(--md-surface-container-high) 64%, transparent);
+  --card-glass-border: color-mix(in oklab, var(--md-outline-variant) 55%, transparent);
+  --shadow-stage:  0 44px 130px rgba(0,0,0,0.72), 0 0 0 1px rgba(255,255,255,0.05);
+  /* 主色光池 + 第三色补光 */
+  --surface-pattern:
+    radial-gradient(1200px 900px at 88% -10%, color-mix(in oklab, var(--md-primary) 22%, transparent), transparent 62%),
+    radial-gradient(900px 800px at -4% 106%, color-mix(in oklab, var(--md-tertiary) 16%, transparent), transparent 58%);
+  --surface-pattern-size: auto;
+  --surface-pattern-blend: screen;
+  --surface-vignette:
+    radial-gradient(1500px 1000px at 50% 45%, transparent 50%, rgba(0,0,0,0.45) 100%);
+}
+
+/* ═══ 3. 动态推导：种子色 → 完整 M3 色调板 ═══ */
+@supports (color: oklch(from red l c h)) {
+  .m3[data-theme="m3-expressive-dark"] {
+    --p-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --p-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --p-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --p-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --p-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --p-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --p-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --p-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --p-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --p-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --p-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --p-100: #ffffff;
+    --s-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --s-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --s-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --s-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --s-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --s-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --s-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --s-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --s-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --s-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --s-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --s-100: #ffffff;
+    --t-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) calc(h + 60));
+    --t-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) calc(h + 60));
+    --t-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) calc(h + 60));
+    --t-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) calc(h + 60));
+    --t-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) calc(h + 60));
+    --t-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) calc(h + 60));
+    --t-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) calc(h + 60));
+    --t-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) calc(h + 60));
+    --t-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) calc(h + 60));
+    --t-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) calc(h + 60));
+    --t-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) calc(h + 60));
+    --t-100: #ffffff;
+    --n-4: oklch(from var(--seed) 0.1645 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-6: oklch(from var(--seed) 0.1874 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-12: oklch(from var(--seed) 0.245 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-17: oklch(from var(--seed) 0.286 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-22: oklch(from var(--seed) 0.33 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-24: oklch(from var(--seed) 0.346 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-87: oklch(from var(--seed) 0.89 min(calc(c * 0.55 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-92: oklch(from var(--seed) 0.933 min(calc(c * 0.3 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-94: oklch(from var(--seed) 0.954 min(calc(c * 0.24 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-96: oklch(from var(--seed) 0.967 min(calc(c * 0.17 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-98: oklch(from var(--seed) 0.984 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-100: #ffffff;
+    --nv-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-100: #ffffff;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * M3 视频原语（可选）—— 给章节用的最小集合，不是 UI 组件库
+ *
+ *   .m3-card      色调容器（surface-container + 主题圆角）
+ *   .m3-chip      小标签（pill / 描边）
+ *   .m3-tab       小节标签（视频上方的那个小 tab）
+ *   .m3-kicker    小号大写标签
+ *   .m3-rule      发丝分割线
+ *   .m3-shape     色块 / 形状（圆角跟主题走）
+ *   .m3-progress  线性进度（4dp，M3 spec）
+ *
+ * 尺寸按 1920×1080 舞台给。
+ * ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Theme · m3-quiet
+ *   低饱和 M3：近无彩表面 + 超大留白 + 轻字重，安静、耐看。
+ *
+ *   动态取色（dynamic color）：
+ *     只改下面 ── 1. 种子色 ── 里的 --seed 一个值，
+ *     整套 MD3 色调板 + 30 个语义色角色会按 OKLCH 自动重算。
+ *     --chroma 控制饱和度（0 = 纯灰，1 = 种子原样，>1 = 更鲜艳）。
+ *
+ *   兼容：不支持 oklch(from …) 的浏览器自动退回静态兜底色调板（也是
+ *   一套合法的 M3 配色，只是不再跟随 --seed）。
+ * ───────────────────────────────────────────────────────────────────── */
+.m3[data-theme="m3-quiet"] {
+  /* ═══ 1. 种子色 ═══ */
+  --seed: #3f5d53;
+  --chroma: 0.85;
+  --neutral-chroma: 0.8;
+  --variant-chroma: 0.1;
+
+  /* ═══ 2. 静态兜底色调板（baseline 推导，不支持相对色时使用）═══ */
+  --p-10: #0b221b;
+  --p-20: #1e362f;
+  --p-30: #354d45;
+  --p-40: #4e675f;
+  --p-50: #647e75;
+  --p-60: #7e998f;
+  --p-70: #98b4aa;
+  --p-80: #b9cdc6;
+  --p-90: #dce6e2;
+  --p-95: #edf3f1;
+  --p-99: #fbfdfc;
+  --p-100: #ffffff;
+  --s-10: #181f1d;
+  --s-20: #2b3330;
+  --s-30: #414a47;
+  --s-40: #5b6360;
+  --s-50: #717a77;
+  --s-60: #8b9491;
+  --s-70: #a5afab;
+  --s-80: #c2c9c7;
+  --s-90: #e0e4e3;
+  --s-95: #f0f2f1;
+  --s-99: #fcfcfc;
+  --s-100: #ffffff;
+  --t-10: #151f24;
+  --t-20: #283339;
+  --t-30: #3e4950;
+  --t-40: #57636a;
+  --t-50: #6d7a81;
+  --t-60: #87949b;
+  --t-70: #a1afb6;
+  --t-80: #bfc9cf;
+  --t-90: #dfe4e7;
+  --t-95: #eff2f3;
+  --t-99: #fcfcfd;
+  --t-100: #ffffff;
+  --n-4: #0d0f0e;
+  --n-6: #121413;
+  --n-10: #16201c;
+  --n-12: #19231f;
+  --n-17: #222d29;
+  --n-20: #293430;
+  --n-22: #2d3834;
+  --n-24: #313c38;
+  --n-30: #3f4a46;
+  --n-50: #6f7b76;
+  --n-60: #899591;
+  --n-80: #becbc6;
+  --n-87: #d2ded9;
+  --n-90: #dde5e2;
+  --n-92: #e4ebe8;
+  --n-94: #ecf1ef;
+  --n-95: #eef3f1;
+  --n-96: #f1f5f4;
+  --n-98: #f8faf9;
+  --n-99: #fcfdfc;
+  --n-100: #ffffff;
+  --nv-30: #464847;
+  --nv-50: #767877;
+  --nv-60: #909291;
+  --nv-80: #c6c8c7;
+  --nv-90: #e2e3e3;
+
+  /* ── MD3 语义色角色（light scheme）── */
+  --md-primary:              var(--p-40);
+  --md-on-primary:           #ffffff;
+  --md-primary-container:    var(--p-80);
+  --md-on-primary-container: var(--p-20);
+  --md-secondary:              var(--s-40);
+  --md-on-secondary:           #ffffff;
+  --md-secondary-container:    var(--s-80);
+  --md-on-secondary-container: var(--s-20);
+  --md-tertiary:              var(--t-40);
+  --md-on-tertiary:           #ffffff;
+  --md-tertiary-container:    var(--t-80);
+  --md-on-tertiary-container: var(--t-20);
+  --md-error:              #b3261e;
+  --md-on-error:           #ffffff;
+  --md-error-container:    #f9dedc;
+  --md-on-error-container: #410e0b;
+  --md-surface:                    var(--n-98);
+  --md-on-surface:                 var(--n-10);
+  --md-surface-variant:            var(--nv-90);
+  --md-on-surface-variant:         var(--nv-30);
+  --md-surface-container-lowest:   #ffffff;
+  --md-surface-container-low:      var(--n-96);
+  --md-surface-container:          var(--n-94);
+  --md-surface-container-high:     var(--n-92);
+  --md-surface-container-highest:  var(--n-90);
+  --md-outline:          var(--nv-50);
+  --md-outline-variant:  var(--nv-80);
+  --md-inverse-surface:  var(--n-20);
+  --md-inverse-on-surface: var(--n-95);
+  --md-inverse-primary:  var(--p-80);
+  /* ── 视频主题契约映射 ── */
+  --shell:      var(--n-92);
+  --surface:    var(--md-surface);
+  --surface-2:  var(--md-surface-container);
+  --surface-3:  var(--md-surface-container-high);
+  --text:       var(--md-on-surface);
+  --text-2:     var(--md-on-surface-variant);
+  --text-mute:  color-mix(in oklab, var(--nv-50) 80%, var(--nv-30));
+  --text-faint: color-mix(in oklab, var(--nv-60) 55%, var(--nv-50));
+  --rule:       var(--md-outline-variant);
+  --accent:     var(--md-primary);
+  --accent-soft: color-mix(in oklab, var(--accent) 11%, transparent);
+  --accent-glow: color-mix(in oklab, var(--accent) 42%, transparent);
+
+  /* ═══ 字体 ═══ */
+  --font-display-cn: "Noto Sans SC", "Source Han Sans SC", -apple-system, sans-serif;
+  --font-display-en: "Roboto Flex", "Roboto", "Helvetica Neue", -apple-system, sans-serif;
+  --font-body:       "Roboto", "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono:       "Roboto Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-features:   "tnum", "ss01";
+
+  /* ── MD3 shape scale（Expressive 加大版）── */
+  --md-shape-none: 0px;
+  --md-shape-xs:   4px;
+  --md-shape-s:    8px;
+  --md-shape-m:    10px;
+  --md-shape-l:    12px;
+  --md-shape-xl:   20px;
+  --md-shape-xxl:  28px;
+  --md-shape-full: 999px;
+  --r-card:        10px;
+
+  /* ── 时长（M3 duration tokens 的视频版放大）── */
+  --md-dur-short-1: 100ms;
+  --md-dur-short-2: 150ms;
+  --md-dur-short-3: 260ms;
+  --md-dur-medium-1: 520ms;
+  --md-dur-medium-2: 760ms;
+  --md-dur-long-1: 1100ms;
+  --md-dur-long-2: 1430ms;
+
+  /* ── 通用动效变量映射到 M3，让 primitive class 自动带 M3 手感 ── */
+  --ease-quart:     var(--md-ease-emphasized);
+  --ease-expo:      var(--md-ease-emphasized-decelerate);
+  --ease-soft:      var(--md-ease-standard);
+  --ease-overshoot: var(--md-ease-emphasized-decelerate);
+  --dur-quick:      260ms;
+  --dur-base:       520ms;
+  --dur-slow:       760ms;
+  --dur-cinematic:  1100ms;
+  --md-spring:      var(--md-spring-slow);
+
+  /* ── MD3 motion：easing 曲线（spec 原值）── */
+  --md-ease-emphasized:            cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-ease-standard:              cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-standard-decelerate:   cubic-bezier(0, 0, 0, 1);
+  --md-ease-standard-accelerate:   cubic-bezier(0.3, 0, 1, 1);
+
+  /* ── MD3 Expressive：弹簧（damped spring 采样成 CSS linear()）── */
+  --md-spring-fast:    linear(0, 0.051 4.0%, 0.168 8.0%, 0.313 12.0%, 0.459 16.0%, 0.593 20.0%, 0.708 24.0%, 0.800 28.0%, 0.871 32.0%, 0.924 36.0%, 0.961 40.0%, 0.986 44.0%, 1.002 48.0%, 1.010 52.0%, 1.014 56.0%, 1.015 60.0%, 1.014 64.0%, 1.012 68.0%, 1.010 72.0%, 1.008 76.0%, 1.006 80.0%, 1.004 84.0%, 1.003 88.0%, 1.002 92.0%, 1.001 96.0%, 1);
+  --md-spring-default: linear(0, 0.058 4.0%, 0.191 8.0%, 0.352 12.0%, 0.513 16.0%, 0.656 20.0%, 0.774 24.0%, 0.865 28.0%, 0.932 32.0%, 0.977 36.0%, 1.005 40.0%, 1.021 44.0%, 1.027 48.0%, 1.028 52.0%, 1.026 56.0%, 1.022 60.0%, 1.017 64.0%, 1.013 68.0%, 1.009 72.0%, 1.006 76.0%, 1.003 80.0%, 1.001 84.0%, 1.000 88.0%, 1.000 92.0%, 0.999 96.0%, 1);
+  --md-spring-slow:    linear(0, 0.045 4.0%, 0.150 8.0%, 0.280 12.0%, 0.413 16.0%, 0.538 20.0%, 0.647 24.0%, 0.739 28.0%, 0.813 32.0%, 0.870 36.0%, 0.914 40.0%, 0.946 44.0%, 0.969 48.0%, 0.984 52.0%, 0.994 56.0%, 1.001 60.0%, 1.004 64.0%, 1.006 68.0%, 1.006 72.0%, 1.006 76.0%, 1.005 80.0%, 1.005 84.0%, 1.004 88.0%, 1.003 92.0%, 1.002 96.0%, 1);
+  --md-spring-bouncy:  linear(0, 0.180 4.0%, 0.553 8.0%, 0.912 12.0%, 1.146 16.0%, 1.232 20.0%, 1.204 24.0%, 1.121 28.0%, 1.034 32.0%, 0.973 36.0%, 0.947 40.0%, 0.950 44.0%, 0.968 48.0%, 0.989 52.0%, 1.004 56.0%, 1.012 60.0%, 1.012 64.0%, 1.008 68.0%, 1.004 72.0%, 1.000 76.0%, 0.997 80.0%, 0.997 84.0%, 0.998 88.0%, 0.999 92.0%, 1.000 96.0%, 1);
+
+  /* ═══ 舞台性格 ═══ */
+  --r-stage:       0;
+  --rule-w:        1px;
+  --rule-style:    solid;
+  --hero-num-font:   var(--font-display-en);
+  --hero-num-style:  normal;
+  --hero-num-weight: 300;
+  --hero-num-track:  -0.05em;
+  --stage-pad-x:   140px;
+  --stage-pad-y:   100px;
+  --card-shadow:   none;
+  --card-glass-bg:     color-mix(in oklab, var(--md-surface-container-high) 88%, transparent);
+  --card-glass-border: color-mix(in oklab, var(--md-outline-variant) 55%, transparent);
+  --shadow-stage:  0 24px 72px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.03);
+  --surface-pattern: none;
+  --surface-vignette: none;
+}
+
+/* ═══ 3. 动态推导：种子色 → 完整 M3 色调板 ═══ */
+@supports (color: oklch(from red l c h)) {
+  .m3[data-theme="m3-quiet"] {
+    --p-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --p-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --p-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --p-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --p-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --p-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --p-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --p-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --p-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --p-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --p-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --p-100: #ffffff;
+    --s-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) h);
+    --s-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) h);
+    --s-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) h);
+    --s-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) h);
+    --s-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) h);
+    --s-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) h);
+    --s-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) h);
+    --s-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) h);
+    --s-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) h);
+    --s-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) h);
+    --s-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) h);
+    --s-100: #ffffff;
+    --t-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--chroma) * var(--chroma-scale, 1)), 0.12) calc(h + 60));
+    --t-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.15) calc(h + 60));
+    --t-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.17) calc(h + 60));
+    --t-40: oklch(from var(--seed) 0.492 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.19) calc(h + 60));
+    --t-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.18) calc(h + 60));
+    --t-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.16) calc(h + 60));
+    --t-70: oklch(from var(--seed) 0.745 min(calc(c * 1.0 * var(--chroma) * var(--chroma-scale, 1)), 0.14) calc(h + 60));
+    --t-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--chroma) * var(--chroma-scale, 1)), 0.11) calc(h + 60));
+    --t-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--chroma) * var(--chroma-scale, 1)), 0.055) calc(h + 60));
+    --t-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--chroma) * var(--chroma-scale, 1)), 0.03) calc(h + 60));
+    --t-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--chroma) * var(--chroma-scale, 1)), 0.007) calc(h + 60));
+    --t-100: #ffffff;
+    --n-4: oklch(from var(--seed) 0.1645 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-6: oklch(from var(--seed) 0.1874 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-10: oklch(from var(--seed) 0.232 min(calc(c * 0.98 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-12: oklch(from var(--seed) 0.245 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-17: oklch(from var(--seed) 0.286 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-20: oklch(from var(--seed) 0.312 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-22: oklch(from var(--seed) 0.33 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-24: oklch(from var(--seed) 0.346 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-87: oklch(from var(--seed) 0.89 min(calc(c * 0.55 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-92: oklch(from var(--seed) 0.933 min(calc(c * 0.3 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-94: oklch(from var(--seed) 0.954 min(calc(c * 0.24 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-95: oklch(from var(--seed) 0.959 min(calc(c * 0.2 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-96: oklch(from var(--seed) 0.967 min(calc(c * 0.17 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-98: oklch(from var(--seed) 0.984 min(calc(c * 0.1 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-99: oklch(from var(--seed) 0.992 min(calc(c * 0.05 * var(--neutral-chroma) * var(--chroma-scale, 1)), 0.016) h);
+    --n-100: #ffffff;
+    --nv-30: oklch(from var(--seed) 0.399 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-50: oklch(from var(--seed) 0.571 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-60: oklch(from var(--seed) 0.659 min(calc(c * 1.0 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-80: oklch(from var(--seed) 0.831 min(calc(c * 0.73 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-90: oklch(from var(--seed) 0.916 min(calc(c * 0.37 * var(--variant-chroma) * var(--chroma-scale, 1)), 0.022) h);
+    --nv-100: #ffffff;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+ * M3 视频原语（可选）—— 给章节用的最小集合，不是 UI 组件库
+ *
+ *   .m3-card      色调容器（surface-container + 主题圆角）
+ *   .m3-chip      小标签（pill / 描边）
+ *   .m3-tab       小节标签（视频上方的那个小 tab）
+ *   .m3-kicker    小号大写标签
+ *   .m3-rule      发丝分割线
+ *   .m3-shape     色块 / 形状（圆角跟主题走）
+ *   .m3-progress  线性进度（4dp，M3 spec）
+ *
+ * 尺寸按 1920×1080 舞台给。
+ * ═══════════════════════════════════════════════════════════════════ */
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="title">
+      <h1>Material Design 3 · 视频模板 6 套</h1>
+      <p>1920×1080 真实舞台 · 换种子色整套配色重算 · 点卡片放大</p>
+    </div>
+    <div class="controls">
+      <label class="ctrl"><span>SEED</span><input type="color" id="seed" value="#6750a4">
+        <div class="row" id="seeds" style="display:flex;gap:6px"><button class="seed" data-seed="#6750a4" style="--c:#6750a4" title="#6750a4"></button><button class="seed" data-seed="#00639b" style="--c:#00639b" title="#00639b"></button><button class="seed" data-seed="#00696e" style="--c:#00696e" title="#00696e"></button><button class="seed" data-seed="#3f6b3a" style="--c:#3f6b3a" title="#3f6b3a"></button><button class="seed" data-seed="#e8542f" style="--c:#e8542f" title="#e8542f"></button><button class="seed" data-seed="#a8375f" style="--c:#a8375f" title="#a8375f"></button><button class="seed" data-seed="#4b5bd6" style="--c:#4b5bd6" title="#4b5bd6"></button><button class="seed" data-seed="#7a5b3a" style="--c:#7a5b3a" title="#7a5b3a"></button></div>
+      </label>
+      <label class="ctrl"><span>CHROMA</span><input type="range" id="chroma" min="0" max="200" value="100"><b class="val" id="chromaVal">1.00×</b></label>
+      <button class="btn" id="replay">重播动效</button>
+      <button class="btn" id="reset">恢复默认</button>
+    </div>
+  </div>
+</header>
+
+<div class="segs" id="segs"><button class="seg is-on" data-scene="cover">封面<span>标题 + 留白</span></button><button class="seg" data-scene="media">媒体页<span>全幅视频 + 悬浮信息</span></button><button class="seg" data-scene="split">图文页<span>左问题 · 右图片</span></button><button class="seg" data-scene="cards">卡片页<span>三栏并列 · 中间强调</span></button><button class="seg" data-scene="list">递进页<span>逐条揭示</span></button><button class="seg" data-scene="chart">图表页<span>柱状对比 + 高亮</span></button><button class="seg" data-scene="data">数据页<span>色调板 + 大数字</span></button><button class="seg" data-scene="end">尾页<span>谢谢观看</span></button></div>
+<div id="grids"><div class="grid" id="grid">
+    <article class="card m3" data-theme="m3-tonal-spot" data-idx="0">
+      <div class="stage-wrap">
+        <div class="stage-scaler">
+          <div class="stage">
+            <div class="stage-bg"></div>
+            <div class="scene-host"></div>
+            <div class="cprog">
+              <div class="cprog-labels"><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:3"></span><span class="cprog-lab" style="--w:4"></span><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:1"></span></div>
+              <div class="cprog-bar"><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:3"><i></i></span><span class="cprog-seg" style="--w:4"><i></i></span><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:1"><i></i></span><i class="cprog-stop"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="meta">
+        <div class="meta-head"><h3>M3 动态 · 浅色</h3><code>m3-tonal-spot</code></div>
+        <p>Material You 标准浅色：色调表面分层 + 种子色主色，克制通用，适合绝大多数题材。</p>
+        <div class="palette"><i style="background:var(--md-primary)" title="primary"></i><i style="background:var(--md-primary-container)" title="primary container"></i><i style="background:var(--md-secondary)" title="secondary"></i><i style="background:var(--md-secondary-container)" title="secondary container"></i><i style="background:var(--md-tertiary)" title="tertiary"></i><i style="background:var(--md-tertiary-container)" title="tertiary container"></i><i style="background:var(--md-surface-container)" title="surface container"></i><i style="background:var(--md-outline-variant)" title="outline variant"></i><i style="background:var(--md-inverse-surface)" title="inverse surface"></i><i style="background:var(--md-error)" title="error"></i></div>
+      </footer>
+    </article>
+    <article class="card m3" data-theme="m3-tonal-dark" data-idx="1">
+      <div class="stage-wrap">
+        <div class="stage-scaler">
+          <div class="stage">
+            <div class="stage-bg"></div>
+            <div class="scene-host"></div>
+            <div class="cprog">
+              <div class="cprog-labels"><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:3"></span><span class="cprog-lab" style="--w:4"></span><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:1"></span></div>
+              <div class="cprog-bar"><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:3"><i></i></span><span class="cprog-seg" style="--w:4"><i></i></span><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:1"><i></i></span><i class="cprog-stop"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="meta">
+        <div class="meta-head"><h3>M3 动态 · 深色</h3><code>m3-tonal-dark</code></div>
+        <p>Material You 深色：近黑表面靠色调分层抬升，暗场录制友好，安静而有分量。</p>
+        <div class="palette"><i style="background:var(--md-primary)" title="primary"></i><i style="background:var(--md-primary-container)" title="primary container"></i><i style="background:var(--md-secondary)" title="secondary"></i><i style="background:var(--md-secondary-container)" title="secondary container"></i><i style="background:var(--md-tertiary)" title="tertiary"></i><i style="background:var(--md-tertiary-container)" title="tertiary container"></i><i style="background:var(--md-surface-container)" title="surface container"></i><i style="background:var(--md-outline-variant)" title="outline variant"></i><i style="background:var(--md-inverse-surface)" title="inverse surface"></i><i style="background:var(--md-error)" title="error"></i></div>
+      </footer>
+    </article>
+    <article class="card m3" data-theme="m3-vibrant" data-idx="2">
+      <div class="stage-wrap">
+        <div class="stage-scaler">
+          <div class="stage">
+            <div class="stage-bg"></div>
+            <div class="scene-host"></div>
+            <div class="cprog">
+              <div class="cprog-labels"><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:3"></span><span class="cprog-lab" style="--w:4"></span><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:1"></span></div>
+              <div class="cprog-bar"><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:3"><i></i></span><span class="cprog-seg" style="--w:4"><i></i></span><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:1"><i></i></span><i class="cprog-stop"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="meta">
+        <div class="meta-head"><h3>M3 活力</h3><code>m3-vibrant</code></div>
+        <p>高饱和 M3：饱和色调容器 + 24px 圆角 + 干脆弹簧，声音大但仍然是系统化配色。</p>
+        <div class="palette"><i style="background:var(--md-primary)" title="primary"></i><i style="background:var(--md-primary-container)" title="primary container"></i><i style="background:var(--md-secondary)" title="secondary"></i><i style="background:var(--md-secondary-container)" title="secondary container"></i><i style="background:var(--md-tertiary)" title="tertiary"></i><i style="background:var(--md-tertiary-container)" title="tertiary container"></i><i style="background:var(--md-surface-container)" title="surface container"></i><i style="background:var(--md-outline-variant)" title="outline variant"></i><i style="background:var(--md-inverse-surface)" title="inverse surface"></i><i style="background:var(--md-error)" title="error"></i></div>
+      </footer>
+    </article>
+    <article class="card m3" data-theme="m3-expressive" data-idx="3">
+      <div class="stage-wrap">
+        <div class="stage-scaler">
+          <div class="stage">
+            <div class="stage-bg"></div>
+            <div class="scene-host"></div>
+            <div class="cprog">
+              <div class="cprog-labels"><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:3"></span><span class="cprog-lab" style="--w:4"></span><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:1"></span></div>
+              <div class="cprog-bar"><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:3"><i></i></span><span class="cprog-seg" style="--w:4"><i></i></span><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:1"><i></i></span><i class="cprog-stop"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="meta">
+        <div class="meta-head"><h3>M3 表现力 · 浅色</h3><code>m3-expressive</code></div>
+        <p>M3 Expressive 浅色：超大圆角 + 弹簧回弹 + 强调字重，友好、有能量，适合面向大众的表达。</p>
+        <div class="palette"><i style="background:var(--md-primary)" title="primary"></i><i style="background:var(--md-primary-container)" title="primary container"></i><i style="background:var(--md-secondary)" title="secondary"></i><i style="background:var(--md-secondary-container)" title="secondary container"></i><i style="background:var(--md-tertiary)" title="tertiary"></i><i style="background:var(--md-tertiary-container)" title="tertiary container"></i><i style="background:var(--md-surface-container)" title="surface container"></i><i style="background:var(--md-outline-variant)" title="outline variant"></i><i style="background:var(--md-inverse-surface)" title="inverse surface"></i><i style="background:var(--md-error)" title="error"></i></div>
+      </footer>
+    </article>
+    <article class="card m3" data-theme="m3-expressive-dark" data-idx="4">
+      <div class="stage-wrap">
+        <div class="stage-scaler">
+          <div class="stage">
+            <div class="stage-bg"></div>
+            <div class="scene-host"></div>
+            <div class="cprog">
+              <div class="cprog-labels"><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:3"></span><span class="cprog-lab" style="--w:4"></span><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:1"></span></div>
+              <div class="cprog-bar"><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:3"><i></i></span><span class="cprog-seg" style="--w:4"><i></i></span><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:1"><i></i></span><i class="cprog-stop"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="meta">
+        <div class="meta-head"><h3>M3 表现力 · 深色</h3><code>m3-expressive-dark</code></div>
+        <p>M3 Expressive 深色：近黑底上的高饱和容器 + 44px 圆角 + 回弹动效，戏剧性强，适合预告与沉浸叙事。</p>
+        <div class="palette"><i style="background:var(--md-primary)" title="primary"></i><i style="background:var(--md-primary-container)" title="primary container"></i><i style="background:var(--md-secondary)" title="secondary"></i><i style="background:var(--md-secondary-container)" title="secondary container"></i><i style="background:var(--md-tertiary)" title="tertiary"></i><i style="background:var(--md-tertiary-container)" title="tertiary container"></i><i style="background:var(--md-surface-container)" title="surface container"></i><i style="background:var(--md-outline-variant)" title="outline variant"></i><i style="background:var(--md-inverse-surface)" title="inverse surface"></i><i style="background:var(--md-error)" title="error"></i></div>
+      </footer>
+    </article>
+    <article class="card m3" data-theme="m3-quiet" data-idx="5">
+      <div class="stage-wrap">
+        <div class="stage-scaler">
+          <div class="stage">
+            <div class="stage-bg"></div>
+            <div class="scene-host"></div>
+            <div class="cprog">
+              <div class="cprog-labels"><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:3"></span><span class="cprog-lab" style="--w:4"></span><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:1"></span></div>
+              <div class="cprog-bar"><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:3"><i></i></span><span class="cprog-seg" style="--w:4"><i></i></span><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:1"><i></i></span><i class="cprog-stop"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="meta">
+        <div class="meta-head"><h3>M3 素净</h3><code>m3-quiet</code></div>
+        <p>低饱和 M3：近无彩表面 + 超大留白 + 轻字重，安静耐看，适合深度长文与研究型内容。</p>
+        <div class="palette"><i style="background:var(--md-primary)" title="primary"></i><i style="background:var(--md-primary-container)" title="primary container"></i><i style="background:var(--md-secondary)" title="secondary"></i><i style="background:var(--md-secondary-container)" title="secondary container"></i><i style="background:var(--md-tertiary)" title="tertiary"></i><i style="background:var(--md-tertiary-container)" title="tertiary container"></i><i style="background:var(--md-surface-container)" title="surface container"></i><i style="background:var(--md-outline-variant)" title="outline variant"></i><i style="background:var(--md-inverse-surface)" title="inverse surface"></i><i style="background:var(--md-error)" title="error"></i></div>
+      </footer>
+    </article></div></div>
+
+<div class="viewer" id="viewer" hidden>
+  <div class="v-bar">
+    <b id="vName">—</b>
+    <code id="vScene" style="font-family:'Roboto Mono',monospace;font-size:11px;color:#7a7a84"></code>
+    <span class="sp"></span>
+    <span style="font-size:11px;color:#7a7a84">种子色</span>
+    <input type="color" id="vSeed" value="#6750a4">
+    <button class="btn" id="vClose">关闭 ESC</button>
+  </div>
+  <div class="v-wrap">
+    <div class="stage-scaler m3" id="vScaler">
+      <div class="stage" id="vStage">
+        <div class="stage-bg"></div>
+        <div class="scene-host"></div>
+        <div class="cprog"><div class="cprog-labels"><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:3"></span><span class="cprog-lab" style="--w:4"></span><span class="cprog-lab" style="--w:2"></span><span class="cprog-lab" style="--w:1"></span></div><div class="cprog-bar"><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:3"><i></i></span><span class="cprog-seg" style="--w:4"><i></i></span><span class="cprog-seg" style="--w:2"><i></i></span><span class="cprog-seg" style="--w:1"><i></i></span><i class="cprog-stop"></i></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="v-foot"><kbd>←</kbd><kbd>→</kbd> 切换页面 · <kbd>ESC</kbd> 关闭 · <span id="vHint"></span></div>
+</div>
+
+<script>
+const META = {"m3-tonal-spot": {"nameZh": "M3 动态 · 浅色", "seed": "#6750a4"}, "m3-tonal-dark": {"nameZh": "M3 动态 · 深色", "seed": "#6750a4"}, "m3-vibrant": {"nameZh": "M3 活力", "seed": "#00696e"}, "m3-expressive": {"nameZh": "M3 表现力 · 浅色", "seed": "#e8542f"}, "m3-expressive-dark": {"nameZh": "M3 表现力 · 深色", "seed": "#e8542f"}, "m3-quiet": {"nameZh": "M3 素净", "seed": "#3f5d53"}};
+const SCENES = ["cover", "media", "split", "cards", "list", "chart", "data", "end"];
+const SCENE_NAMES = {cover:'封面', media:'媒体页', list:'递进页', data:'数据页'};
+
+function fitOne(wrap){
+  const s = wrap.clientWidth / 1920;
+  const sc = wrap.querySelector('.stage-scaler');
+  if (sc) sc.style.transform = `scale(${s})`;
+}
+const ro = new ResizeObserver(es => es.forEach(e => fitOne(e.target)));
+document.querySelectorAll('.stage-wrap').forEach(w => { ro.observe(w); fitOne(w); });
+
+const SCENE_HTML = {"cover": "\n    <div class=\"sc sc-cover\">\n      <div class=\"cv-body\">\n        <span class=\"m3-kicker\"><i class=\"dot\"></i>Material Design 3</span>\n        <h1 class=\"cv-title\">用色阶<br>代替阴影</h1>\n        <p class=\"cv-sub\">层级不靠投影，靠表面色阶。<br>一个种子色，长出一整套 MD3 配色。</p>\n      </div>\n      <p class=\"sub\">这一章只讲一件事：层级到底从哪来。</p>\n    </div>", "media": "\n    <div class=\"sc sc-media\">\n      <div class=\"md-frame\">\n        <div class=\"md-vf\"></div>\n        <div class=\"md-ph\"><span class=\"md-ph-ic\"><svg viewBox=\"0 0 24 24\" width=\"44\" height=\"44\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M8 5.2v13.6L19 12z\"/></svg></span>视频素材</div>\n        <div class=\"md-float md-float--tl\"><span class=\"m3-kicker\"><i class=\"dot\"></i>第 2 章</span></div>\n        <div class=\"md-float md-float--tr\">04:32</div>\n        <div class=\"md-float md-float--bl\">\n          <div class=\"md-cap-t\">用色阶代替阴影</div>\n          <div class=\"md-cap-s\">色调表面：同一色相，不同明度，就是一套层级。</div>\n        </div>\n      </div>\n      <p class=\"sub\">所以第一件事，是把阴影从层级系统里拿掉。</p>\n    </div>", "split": "\n    <div class=\"sc sc-split\">\n      <div class=\"sp-l\">\n        <span class=\"m3-kicker\"><i class=\"dot\"></i>问题</span>\n        <h2 class=\"sp-title\">为什么层级<br>不能靠阴影？</h2>\n        <p class=\"sp-p\">投影表达的是\"浮起来\"，但视频里没有真实光源。M3 改用表面色阶表达层级，静止画面也能读出前后关系。</p>\n        <div class=\"sp-meta\"><span class=\"m3-chip\">Material 3</span><span class=\"m3-chip\">tone 94 → 98</span></div>\n      </div>\n      <div class=\"sp-r\">\n        <div class=\"sp-img\">\n          <div class=\"sp-vf\"></div>\n          <span class=\"sp-hint\">图片素材</span>\n        </div>\n      </div>\n      <p class=\"sub\">因为视频里没有真实光源，投影会显得假。</p>\n    </div>", "cards": "\n    <div class=\"sc sc-cards\">\n      <div class=\"cd-head\">\n        <span class=\"m3-kicker\"><i class=\"dot\"></i>三种容器</span>\n        <h2 class=\"cd-title\">一屏只说一件事</h2>\n      </div>\n      <div class=\"cd-row\"><article class=\"cd-card\"><i class=\"cd-shape\"></i><span class=\"cd-n\">01</span><h3>表面</h3><p>surface 与 container 阶梯，决定内容的分层与呼吸。</p></article><article class=\"cd-card is-hl\"><i class=\"cd-shape\"></i><span class=\"cd-n\">02</span><h3>容器</h3><p>primary / secondary / tertiary 三种容器，各管一件事。</p></article><article class=\"cd-card\"><i class=\"cd-shape\"></i><span class=\"cd-n\">03</span><h3>强调</h3><p>只留一个饱和色，其余靠明度与留白说话。</p></article></div>\n      <p class=\"sub\">三种容器各管一件事，别让它们互相打架。</p>\n    </div>", "list": "\n    <div class=\"sc sc-list\">\n      <div class=\"ls-head\">\n        <span class=\"m3-kicker\"><i class=\"dot\"></i>三种层级</span>\n        <h2 class=\"ls-title\">表面 · 容器 · 强调</h2>\n      </div>\n      <ol class=\"ls\">\n        <li><span class=\"ls-n\">01</span><div><b>色调表面</b><span>surface / container 阶梯，替代阴影做层级</span></div></li>\n        <li><span class=\"ls-n\">02</span><div><b>容器色块</b><span>primary / secondary / tertiary 三种容器</span></div></li>\n        <li><span class=\"ls-n\">03</span><div><b>单一强调色</b><span>只留一个饱和色，其余靠明度说话</span></div></li>\n      </ol>\n      <p class=\"sub\">三条规则：表面、容器、强调。</p>\n    </div>", "chart": "\n    <div class=\"sc sc-chart\">\n      <div class=\"ch-head\">\n        <div class=\"ch-head-l\">\n          <span class=\"m3-kicker\"><i class=\"dot\"></i>节奏</span>\n          <h2 class=\"ch-title\">每章时长与信息密度</h2>\n        </div>\n        <div class=\"ch-legend\">\n          <span class=\"ch-legend-row\"><i class=\"dot\"></i>当前章节</span>\n          <span class=\"ch-total\">全片 4:16 · 5 章</span>\n        </div>\n      </div>\n      <div class=\"ch-plot\"><div class=\"ch-col\"><span class=\"ch-val\">42s</span><i class=\"ch-bar\" style=\"height:260px\"></i><span class=\"ch-x\">01</span></div><div class=\"ch-col\"><span class=\"ch-val\">58s</span><i class=\"ch-bar\" style=\"height:359px\"></i><span class=\"ch-x\">02</span></div><div class=\"ch-col is-hl\"><span class=\"ch-val\">76s</span><i class=\"ch-bar\" style=\"height:470px\"></i><span class=\"ch-x\">03</span></div><div class=\"ch-col\"><span class=\"ch-val\">48s</span><i class=\"ch-bar\" style=\"height:297px\"></i><span class=\"ch-x\">04</span></div><div class=\"ch-col\"><span class=\"ch-val\">32s</span><i class=\"ch-bar\" style=\"height:198px\"></i><span class=\"ch-x\">05</span></div></div>\n      <p class=\"sub\">节奏靠时长分配，不靠信息量堆叠。</p>\n    </div>", "data": "\n    <div class=\"sc sc-data\">\n      <span class=\"m3-kicker\"><i class=\"dot\"></i>Tonal palette</span>\n      <div class=\"dt-row\">\n        <div class=\"dt-num\">30</div>\n        <div class=\"dt-label\">个语义色角色<br>全部由种子色推导</div>\n      </div>\n      <div class=\"dt-bars\"><div class=\"dt-col\"><i style=\"background:var(--p-10)\"></i><span>10</span></div><div class=\"dt-col\"><i style=\"background:var(--p-20)\"></i><span>20</span></div><div class=\"dt-col\"><i style=\"background:var(--p-40)\"></i><span>40</span></div><div class=\"dt-col\"><i style=\"background:var(--p-60)\"></i><span>60</span></div><div class=\"dt-col\"><i style=\"background:var(--p-80)\"></i><span>80</span></div><div class=\"dt-col\"><i style=\"background:var(--p-90)\"></i><span>90</span></div><div class=\"dt-col\"><i style=\"background:var(--p-99)\"></i><span>99</span></div></div>\n      <p class=\"sub\">一个种子色，能长出三十个语义色。</p>\n    </div>", "end": "\n    <div class=\"sc sc-end\">\n      <div class=\"ed-body\">\n        <span class=\"m3-kicker\"><i class=\"dot\"></i>The End</span>\n        <h1 class=\"ed-title\">谢谢观看</h1>\n      </div>\n      <p class=\"sub\">选一套主题，把下一支片子做出来。</p>\n    </div>"};
+const SCENE_PROG = {"cover": [0, 1], "media": [1, 1], "split": [1, 2], "cards": [2, 1], "list": [2, 2], "chart": [2, 3], "data": [3, 1], "end": [4, 1]};
+const CH = [["开场", 2], ["色调表面", 3], ["弹簧动效", 4], ["形状", 2], ["收尾", 1]];
+
+const TOTAL_STEPS = CH.reduce((n, c) => n + c[1], 0);
+
+/** 当前页面对应的「全片已完成步数」（可以是小数） */
+function sceneDone(sid){
+  const [ch, step] = SCENE_PROG[sid];
+  let d = 0;
+  for (let i = 0; i < ch; i++) d += CH[i][1];
+  return d + step;
+}
+
+/** 把「全片已完成步数」画成每段填充比例 —— 单一推进边，不会每段各自从 0 起 */
+function paintBar(root, done){
+  const segs = [...root.querySelectorAll('.cprog-seg')];
+  let acc = 0;
+  segs.forEach((el, i) => {
+    const w = CH[i][1];
+    const f = Math.max(0, Math.min(1, (done - acc) / w));
+    const bar = el.querySelector('i');
+    if (bar) bar.style.width = (f * 100) + '%';
+    acc += w;
+  });
+}
+
+/** 从上一页的进度点平滑推到下一页的进度点 */
+function animateBar(root, target, dur = 560){
+  const from = root._done == null ? target : root._done;
+  cancelAnimationFrame(root._raf);
+  if (Math.abs(from - target) < 0.001) { paintBar(root, target); root._done = target; return; }
+  const t0 = performance.now();
+  const tick = (now) => {
+    const p = Math.min(1, (now - t0) / dur);
+    const e = 1 - Math.pow(1 - p, 3);            // ≈ emphasized decelerate
+    paintBar(root, from + (target - from) * e);
+    if (p < 1) root._raf = requestAnimationFrame(tick);
+    else root._done = target;
+  };
+  root._raf = requestAnimationFrame(tick);
+}
+
+function renderProgress(root, sid){
+  const [ch, step] = SCENE_PROG[sid];
+  root.querySelectorAll('.cprog-lab').forEach((el, i) => {
+    el.textContent = CH[i][0];
+    el.classList.toggle('now', i === ch);
+    el.classList.toggle('done', i < ch);
+  });
+  root.querySelectorAll('.cprog-seg').forEach((el, i) => {
+    el.classList.toggle('now', i === ch);
+    el.classList.toggle('done', i < ch);
+  });
+  animateBar(root, sceneDone(sid));
+}
+
+function renderScene(root, sid, animate){
+  const host = root.querySelector('.scene-host');
+  host.innerHTML = SCENE_HTML[sid];
+  const sc = host.firstElementChild;
+  if (animate) { sc.classList.remove('play'); void sc.offsetWidth; sc.classList.add('play'); }
+  renderProgress(root, sid);
+}
+
+const segs = [...document.querySelectorAll('.seg')];
+let activeScene = SCENES[0];
+function showScene(s){
+  activeScene = s;
+  segs.forEach(b => b.classList.toggle('is-on', b.dataset.scene === s));
+  document.querySelectorAll('.card').forEach(c => renderScene(c, s, true));
+}
+segs.forEach(b => b.addEventListener('click', () => showScene(b.dataset.scene)));
+document.getElementById('replay').addEventListener('click', () => {
+  document.querySelectorAll('.card').forEach(c => renderScene(c, activeScene, true));
+});
+document.querySelectorAll('.card').forEach(c => renderScene(c, activeScene, true));
+
+/* 动态取色 */
+let seedOverride = null;
+function applySeed(v){
+  seedOverride = v;
+  document.querySelectorAll('.m3').forEach(el => el.style.setProperty('--seed', v));
+  document.querySelectorAll('input[type=color]').forEach(i => i.value = v);
+}
+function applyChroma(v){
+  document.querySelectorAll('.m3').forEach(el => el.style.setProperty('--chroma-scale', v));
+  document.getElementById('chromaVal').textContent = (+v).toFixed(2) + '×';
+}
+document.getElementById('seed').addEventListener('input', e => applySeed(e.target.value));
+document.getElementById('seeds').addEventListener('click', e => {
+  const b = e.target.closest('.seed'); if (b) applySeed(b.dataset.seed);
+});
+document.getElementById('chroma').addEventListener('input', e => applyChroma(e.target.value / 100));
+document.getElementById('reset').addEventListener('click', () => {
+  seedOverride = null;
+  document.querySelectorAll('.m3').forEach(el => { el.style.removeProperty('--seed'); el.style.removeProperty('--chroma-scale'); });
+  document.getElementById('chroma').value = 100;
+  document.getElementById('chromaVal').textContent = '1.00×';
+  document.getElementById('seed').value = '#6750a4';
+});
+
+/* viewer */
+const viewer = document.getElementById('viewer');
+const vScaler = document.getElementById('vScaler');
+const vStage = document.getElementById('vStage');
+let curId = null, curScene = null;
+function openViewer(id, scene){
+  curId = id; curScene = scene;
+  vScaler.dataset.theme = id;
+  if (seedOverride) vScaler.style.setProperty('--seed', seedOverride);
+  const st = vStage;
+  renderScene(st, scene, true);
+  document.getElementById('vName').textContent = META[id].nameZh;
+  document.getElementById('vScene').textContent = id + ' · ' + SCENE_NAMES[scene];
+  document.getElementById('vSeed').value = seedOverride || META[id].seed;
+  document.getElementById('vHint').textContent = SCENE_NAMES[scene];
+  viewer.hidden = false;
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(() => fitOne(vScaler.parentElement));
+}
+function closeViewer(){ viewer.hidden = true; document.body.style.overflow = ''; }
+function stepScene(d){
+  const i = SCENES.indexOf(curScene);
+  openViewer(curId, SCENES[(i + d + SCENES.length) % SCENES.length]);
+}
+document.getElementById('grid').addEventListener('click', e => {
+  const c = e.target.closest('.card');
+  if (c) openViewer(c.dataset.theme, activeScene);
+});
+document.getElementById('vClose').addEventListener('click', closeViewer);
+viewer.addEventListener('click', e => { if (e.target === viewer) closeViewer(); });
+document.getElementById('vSeed').addEventListener('input', e => {
+  vScaler.style.setProperty('--seed', e.target.value);
+  applySeed(e.target.value);
+});
+document.addEventListener('keydown', e => {
+  if (viewer.hidden) return;
+  if (e.key === 'Escape') closeViewer();
+  if (e.key === 'ArrowRight') stepScene(1);
+  if (e.key === 'ArrowLeft') stepScene(-1);
+});
+window.addEventListener('resize', () => { if (!viewer.hidden) fitOne(vScaler.parentElement); });
+</script>
+</body>
+</html>

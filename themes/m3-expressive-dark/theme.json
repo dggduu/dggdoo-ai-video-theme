@@ -1,0 +1,28 @@
+{
+  "id": "m3-expressive-dark",
+  "name": "M3 Expressive Dark",
+  "nameZh": "M3 表现力 · 深色",
+  "description": "M3 Expressive dark: vivid containers on near-black, 44px radii, bouncy springs, high drama.",
+  "descriptionZh": "M3 Expressive 深色：近黑底上的高饱和容器 + 44px 圆角 + 回弹动效，戏剧性强，适合预告与沉浸叙事。",
+  "mood": [
+    "dark",
+    "expressive",
+    "spring",
+    "dramatic",
+    "vivid"
+  ],
+  "bestFor": [
+    "产品预告 / 发布会",
+    "音乐与潮流内容",
+    "沉浸式叙事",
+    "开场 hook"
+  ],
+  "seed": "#e8542f",
+  "dynamicColor": true,
+  "preview": {
+    "shell": "#140c0a",
+    "surface": "#1a110e",
+    "text": "#eee0dc",
+    "accent": "#ffb29e"
+  }
+}
